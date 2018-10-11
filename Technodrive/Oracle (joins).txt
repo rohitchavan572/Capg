@@ -1,0 +1,64 @@
+
+Enter user-name: Lab06trg21@orcl11g
+Enter password:lab06oracle
+
+1)Simple join/Equi join:
+
+SQL> select empno,ename,salary,deptname from employees,dept where employees.deptno=dept.deptno;
+
+     EMPNO ENAME                                        SALARY DEPTNAME
+---------- ---------------------------------------- ---------- ----------------------------------------
+         1 Babjee                                        10000 Hr
+         2 Ram                                           20000 Hr
+         3 Sham                                          10000 Acts
+         4 Preem                                         40000 Acts
+         5 Susil                                         14000 Acts
+2)Alias:
+
+SQL> select empno,ename,salary,deptname from employees e,dept d where e.deptno=d.deptno;
+
+     EMPNO ENAME                                        SALARY DEPTNAME
+---------- ---------------------------------------- ---------- ----------------------------------------
+         1 Babjee                                        10000 Hr
+         2 Ram                                           20000 Hr
+         3 Sham                                          10000 Acts
+         4 Preem                                         40000 Acts
+         5 Susil                                         14000 Acts
+
+3)Inner join:
+
+SQL> select empno,ename,salary,deptname from employees e inner join dept d on e.deptno=d.deptno;
+
+     EMPNO ENAME                                        SALARY DEPTNAME
+---------- ---------------------------------------- ---------- ----------------------------------------
+         1 Babjee                                        10000 Hr
+         2 Ram                                           20000 Hr
+         3 Sham                                          10000 Acts
+         4 Preem                                         40000 Acts
+         5 Susil                                         14000 Acts
+
+4)Natural join:
+
+SQL> select empno,ename,salary,deptno,deptname from employees natural join dept;
+
+     EMPNO ENAME                                        SALARY     DEPTNO DEPTNAME
+---------- ---------------------------------------- ---------- ---------- ----------------------------------------
+         1 Babjee                                        10000         20 Hr
+         2 Ram                                           20000         20 Hr
+         3 Sham                                          10000         10 Acts
+         4 Preem                                         40000         10 Acts
+         5 Susil                                         14000         10 Acts
+
+5)Self join:
+SQL> select e.empno,e.ename,m.ename as manager_name from employees e,employees m where e.mgr=m.empno order by empno;
+
+     EMPNO ENAME                                    MANAGER_NAME
+---------- ---------------------------------------- ----------------------------------------
+         1 Babjee                                   Ram
+         2 Ram                                      Babjee
+         3 Sham                                     Babjee
+         4 Preem                                    Babjee
+         5 Susil                                    Ram
+         6 Sundar                                   Ram
+
+6 rows selected.

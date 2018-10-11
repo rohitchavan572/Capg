@@ -1,0 +1,321 @@
+1)
+
+SQL> declare
+  2     v_salary number:=&salary;
+  3     v_name varchar2(50):=&ename;
+  4  begin
+  5     dbms_output.put_line('employees name'||v_name||'salary is'||v_salary);
+  6  end;
+  7  /
+SQL> /
+Enter value for salary: 50000
+old   2:        v_salary number:=&salary;
+new   2:        v_salary number:=50000;
+Enter value for ename: 'rohit'
+old   3:        v_name varchar2(50):=&ename;
+new   3:        v_name varchar2(50):='rohit';
+employees namerohitsalary is50000
+
+PL/SQL procedure successfully completed.
+
+2)
+
+SQL> declare
+  2     v_salary number;
+  3     v_name varchar2(50);
+  4  begin
+  5     select ename,salary into v_name,v_salary from employees where empno=&empno;
+  6     dbms_output.put_line('employees name'||v_name||' salary is '||v_salary);
+  7  end;
+  8  /
+Enter value for empno: 1
+employees nameBabjee salary is 10000
+
+PL/SQL procedure successfully completed.
+
+3)
+
+
+SQL> declare
+  2     v_amt number(10,2):=&amt;
+  3     v_discount number(10,2);
+  4     v_netamt number(10,2);
+  5  begin
+  6     if v_amt > 10000 then
+  7        v_discount := v_amt * 0.2;
+  8     elsif v_amt > 5000 then
+  9        v_discount := v_amt * 0.1;
+ 10     else
+ 11        v_discount := v_amt * 0.05;
+ 12     end if;
+ 13     v_netamt :=v_amt-v_discount;
+ 14  dbms_output.put_line('Amount: '||v_amt);
+ 15  dbms_output.put_line('Discount: '||v_discount);
+ 16  dbms_output.put_line('Netamount: '||v_netamt);
+ 17  end;
+ 18  /
+Enter value for amt: 10000
+Amount: 10000
+Discount: 1000
+Netamount: 9000
+
+PL/SQL procedure successfully completed.
+
+4) For loop:
+
+SQL> declare
+  2     v_number number:=0;
+  3  begin
+  4     loop
+  5      dbms_output.put_line(v_number);
+  6      v_number:=v_number+1;
+  7      exit when v_number =5;
+  8      end loop;
+  9  end;
+ 10  /
+0
+1
+2
+3
+4
+
+PL/SQL procedure successfully completed.
+
+5) While Loop:
+
+SQL> declare
+  2      v_number number:=0;
+  3  begin
+  4     while v_number < 5
+  5  loop
+  6     dbms_output.put_line('hey');
+  7     v_number:=v_number+1;
+  8     end loop;
+  9  end;
+ 10  /
+hey
+hey
+hey
+hey
+hey
+
+PL/SQL procedure successfully completed.
+
+6)For Loop:
+
+
+SQL> begin
+  2  for v_number in 1..5
+  3  loop
+  4     dbms_output.put_line(v_number);
+  5     end loop;
+  6  end;
+  7  /
+1
+2
+3
+4
+5
+
+PL/SQL procedure successfully completed.
+
+7) For loop reverse:
+
+PL/SQL procedure successfully completed.
+
+SQL> begin
+  2  for v_number in reverse 1..5
+  3  loop
+  4     dbms_output.put_line(v_number);
+  5     end loop;
+  6  end;
+  7  /
+5
+4
+3
+2
+1
+
+PL/SQL procedure successfully completed.
+
+8) Exceptions:
+
+SQL> declare
+  2     v_num1 number:=&num1;
+  3     v_num2 number:=&num2;
+  4     v_num3 number;
+  5  begin
+  6     v_num3 :=v_num1/v_num2;
+  7     dbms_output.put_line(v_num3);
+  8  exception
+  9     when ZERO_DIVIDE then
+ 10       dbms_output.put_line('zero divide error');
+ 11  end;
+ 12  /
+Enter value for num1: 10
+Enter value for num2: 2
+
+9)
+
+SQL> declare
+  2     v_input number :=&inval;
+  3     v_result number;
+  4  begin
+  5     v_result:=sqrt(v_input);
+  6     dbms_output.put_line(v_result);
+  7  exception
+  8     when value_error then
+  9     dbms_output.put_line('value error');
+ 10  end;
+ 11  /
+Enter value for inval: 4
+2
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for inval: 5
+2.23606797749978969640917366873127623544
+
+10) Multiple Exceptions:
+
+SQL> declare
+  2    v_deptno number:=&dno;
+  3    v_ename varchar2(40);
+  4  begin
+  5    select ename into v_ename from employees where deptno=v_deptno;
+  6    dbms_output.put_line('emplee name is :'||v_ename);
+  7  exception
+  8     when no_data_found then  dbms_output.put_line('no employees with empno '||v_ename);
+  9     when too_many_rows then  dbms_output.put_line('can not store more than one value in varible');
+ 10  end;
+ 11  /
+Enter value for dno: 10
+can not store more than one value in varible
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for dno: 40
+emplee name is :Sundar
+
+PL/SQL procedure successfully completed.
+
+11)Raising Exceptions:
+
+declare
+    v_empno number:=&empno;
+    v_ename varchar2(40);
+    exp_negativevalue exception;
+begin
+    if v_empno < 0 then;
+      raise exp_negativevalue;
+    else
+      select empno into v_empno from employees where empno=v_empno;
+    end if;
+      dbms_output.put_line('emplee name is :'||v_ename);
+exceptio
+
+12)Create or replace procedure:
+
+SQL> create or replace procedure get_name(p_empno number,p_ename out varchar2)
+  2  as
+  3  begin
+  4     select ename into p_ename from employees where empno=p_empno;
+  5  end;
+  6  /
+
+Procedure created.
+
+SQL> declare
+  2  v_ename varchar2(40);
+  3  begin
+  4   get_name(1,v_ename);
+  5   dbms_output.put_line('employee name is '||v_ename);
+  6  end;
+  7  /
+employee name is Babjee
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  v_ename varchar2(40);
+  3  begin
+  4   get_name(3,v_ename);
+  5   dbms_output.put_line('employee name is '||v_ename);
+  6* end;
+SQL> /
+employee name is Sham
+
+PL/SQL procedure successfully completed.
+
+13) Procedure without parameter:
+
+SQL> create or replace procedure get_name1(p_empno number)
+  2  as
+  3     v_ename varchar2(40);
+  4  begin
+  5   select ename into v_ename from employees where empno=p_empno;
+  6   dbms_output.put_line(v_ename);
+  7  end;
+  8  /
+
+Procedure created.
+
+SQL> exec get_name1(1);
+Babjee
+
+PL/SQL procedure successfully completed.
+
+13)
+
+SQL> select object_name,object_type,status from user_objects where object_name='GET_NAME1';
+
+OBJECT_NAME
+                         OBJECT_TYPE         STATUS
+-------------------------------------------------------------------------------------------------------------------------------- ------------------- -------
+GET_NAME1
+                         PROCEDURE           VALID
+
+14)Create or Replace Function:
+
+ 1  create or replace function  fn_get_name(p_empno number)
+  2   return varchar2
+  3  as
+  4  v_result varchar2(40);
+  5   begin
+  6      select ename into v_result from employees where empno=p_empno;
+  7      return v_result;
+  8  exception
+  9  when no_data_found then
+ 10  dbms_output.put_line('no data found');
+ 11  when too_many_rows then
+ 12  dbms_output.put_line('too many values');
+ 13* end;
+SQL> /
+
+Function created.
+
+SQL> select fn_get_name(1) from dual;
+
+FN_GET_NAME(1)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Babjee
+/*
+create or replace function  fn_get_name(p_empno number)
+ return varchar2
+as
+v_result varchar2(40);
+ begin
+    select ename into v_result from employees where empno=p_empno;
+    return v_result;
+exception
+when no_data_found then
+dbms_output.put_line('no data found');
+when too_many_values then
+dbms_output.put_line('too many values');
+end;
+*/
