@@ -1,0 +1,42 @@
+CREATE TABLE emp1 (empno  NUMBER(5),
+            name VARCHAR2(20),
+            job  VARCHAR2(10),
+            mgr  NUMBER(5),
+            sal  NUMBER(10,2),
+           comm NUMBER(10,2),
+           deptno NUMBER(3) );
+
+---CREATE C:\fix.txt
+7782	CLARK	MANAGER		7839  2572.50          10 
+
+7839	KING	PRESIDENT	      5500.00          10 
+
+7934	MILLER	CLERK		7782   920.00          10 
+
+7566	JONES   MANAGER		7839  3123.75          20 
+
+7499	ALLEN	SALESMAN	7698  1600.00   300.00 30 
+7654	MARTIN	SALESMAN	7698  1312.50  1400.00 30 
+7658	CHAN	ANALYST		7566  3450.00	       20 
+
+7654	MARTIN	SALESMAN	7698  1312.50  1400.00 30
+
+--create a control file in c:\empfix.ctl
+
+LOAD DATA
+   INFILE 'P:/fix.txt'
+   INTO TABLE emp1
+   (empno POSITION(01:04)   INTEGER EXTERNAL,
+       name POSITION(06:15)   CHAR,
+       job  POSITION(17:25)   CHAR,
+       mgr  POSITION(27:30)   INTEGER EXTERNAL,
+       sal  POSITION(32:39)   DECIMAL EXTERNAL,
+       comm POSITION(41:48)   DECIMAL EXTERNAL,
+   deptno POSITION(50:51)   INTEGER EXTERNAL)
+
+---open cmd prompt
+sqlldr userid=system/sys control=empfix.ctl log=empfix.log direct=y
+
+
+
+

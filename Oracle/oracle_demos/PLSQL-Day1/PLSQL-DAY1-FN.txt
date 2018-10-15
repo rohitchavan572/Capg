@@ -1,0 +1,435 @@
+
+SQL> SET SERVEROUTPUT ON
+SQL> BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('Welcome');
+  3  END;
+  4  /
+Welcome
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('Welcome');
+  3  END;
+  4  /
+Welcome
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('Welcome'||' to PL/SQL session');
+  3  END;
+  4  /
+Welcome to PL/SQL session
+
+PL/SQL procedure successfully completed.
+
+SQL>
+
+SQL> DECLARE
+  2  	num NUMBER;
+  3  BEGIN
+  4  	num:=25;
+  5  	DBMS_OUTPUT.PUT_LINE('Result is '||num);
+  6  END;
+  7  /
+Result is 25                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	num NUMBER:=20;
+  3  BEGIN
+  4  	num:=25;
+  5  	DBMS_OUTPUT.PUT_LINE('Result is '||num);
+  6  END;
+  7  /
+Result is 25                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	num NUMBER:=20;
+  3  	doj DATE DEFAULT SYSDATE;
+  4  BEGIN
+  5  	--num:=25;
+  6  	DBMS_OUTPUT.PUT_LINE('Result is '||num);
+  7  	DBMS_OUTPUT.PUT_LINE('Result is '||doj);
+  8  END;
+  9  /
+Result is 20                                                                    
+Result is 25-AUG-14                                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20) NOT NULL;
+  3  	id NUMBER;
+  4  BEGIN
+  5  	DBMS_OUTPUT.PUT_LINE(vcName||id);
+  6  END;
+  7  /
+	vcName VARCHAR2(20) NOT NULL;
+	       *
+ERROR at line 2:
+ORA-06550: line 2, column 9: 
+PLS-00218: a variable declared NOT NULL must have an initialization assignment 
+
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20) NOT NULL:='Test';
+  3  	id NUMBER;
+  4  BEGIN
+  5  	DBMS_OUTPUT.PUT_LINE(vcName||id);
+  6  END;
+  7  /
+Test                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20) NOT NULL;
+  3  	id NUMBER;
+  4  BEGIN
+  5  	vcName:='sample';
+  6  	DBMS_OUTPUT.PUT_LINE(vcName||id);
+  7  END;
+  8  /
+	vcName VARCHAR2(20) NOT NULL;
+	       *
+ERROR at line 2:
+ORA-06550: line 2, column 9: 
+PLS-00218: a variable declared NOT NULL must have an initialization assignment 
+
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20) NOT NULL DEFAULT 'Example';
+  3  BEGIN
+  4  	vcName:='sample';
+  5  	DBMS_OUTPUT.PUT_LINE(vcName);
+  6  END;
+  7  /
+sample                                                                          
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20) NOT NULL DEFAULT 'Example';
+  3  	nPF CONSTANT NUMBER;
+  4  BEGIN
+  5  	vcName:='sample';
+  6  	DBMS_OUTPUT.PUT_LINE(vcName);
+  7  END;
+  8  /
+	nPF CONSTANT NUMBER;
+	*
+ERROR at line 3:
+ORA-06550: line 3, column 2: 
+PLS-00322: declaration of a constant 'NPF' must contain an initialization 
+assignment 
+ORA-06550: line 3, column 6: 
+PL/SQL: Item ignored 
+
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20) NOT NULL DEFAULT 'Example';
+  3  	nPF CONSTANT NUMBER:=23;
+  4  BEGIN
+  5  	vcName:='sample';
+  6  	DBMS_OUTPUT.PUT_LINE(vcName);
+  7  END;
+  8  /
+sample                                                                          
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20) NOT NULL DEFAULT 'Example';
+  3  	nPF CONSTANT NUMBER;
+  4  BEGIN
+  5  	vcName:='sample';
+  6  	nPF:=25;
+  7  	DBMS_OUTPUT.PUT_LINE(vcName||nPF);
+  8  END;
+  9  /
+	nPF CONSTANT NUMBER;
+	*
+ERROR at line 3:
+ORA-06550: line 3, column 2: 
+PLS-00322: declaration of a constant 'NPF' must contain an initialization 
+assignment 
+ORA-06550: line 3, column 6: 
+PL/SQL: Item ignored 
+ORA-06550: line 6, column 2: 
+PLS-00363: expression 'NPF' cannot be used as an assignment target 
+ORA-06550: line 6, column 2: 
+PL/SQL: Statement ignored 
+
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20) NOT NULL DEFAULT 'Example';
+  3  	nPF CONSTANT NUMBER:=20;
+  4  BEGIN
+  5  	vcName:='sample';
+  6  	nPF:=25;
+  7  	DBMS_OUTPUT.PUT_LINE(vcName||nPF);
+  8  END;
+  9  /
+	nPF:=25;
+	*
+ERROR at line 6:
+ORA-06550: line 6, column 2: 
+PLS-00363: expression 'NPF' cannot be used as an assignment target 
+ORA-06550: line 6, column 2: 
+PL/SQL: Statement ignored 
+
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20);
+  3  	vcLoc VARCHAR2(20);
+  4  	nDeptno NUMBER;
+  5  BEGIN
+  6  	vcName:='&name';
+  7  	vcLoc:='&loc';
+  8  	nDeptno:=93;
+  9  	INSERT INTO dept VALUES(94,vcName,vcLoc);
+ 10  END;
+ 11  /
+Enter value for name: Sales
+old   6: 	vcName:='&name';
+new   6: 	vcName:='Sales';
+Enter value for loc: CHN
+old   7: 	vcLoc:='&loc';
+new   7: 	vcLoc:='CHN';
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT dname,loc FROM dept WHERE deptno=10;
+
+DNAME          LOC                                                              
+-------------- -------------                                                    
+ACCOUNTING     NEWYORK                                                          
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20);
+  3  	vcLoc VARCHAR2(20);
+  4  BEGIN
+  5  	SELECT dname,loc INTO vcName,vcLoc FROM dept WHERE deptno=10;
+  6  	DBMS_OUTPUT.PUT_LINE('Department Name: '||vcName);
+  7  	DBMS_OUTPUT.PUT_LINE('Department Location: '||vcLoc);
+  8  END;
+  9  /
+Department Name: ACCOUNTING                                                     
+Department Location: NEWYORK                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20);
+  3  	vcLoc VARCHAR2(20);
+  4  	nDeptno NUMBER;
+  5  BEGIN
+  6  	SELECT * INTO nDeptno,vcName,vcLoc FROM dept WHERE deptno=10;
+  7  	DBMS_OUTPUT.PUT_LINE('Department No: '||nDeptno);
+  8  	DBMS_OUTPUT.PUT_LINE('Department Name: '||vcName);
+  9  	DBMS_OUTPUT.PUT_LINE('Department Location: '||vcLoc);
+ 10  END;
+ 11  /
+Department No: 10                                                               
+Department Name: ACCOUNTING                                                     
+Department Location: NEWYORK                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	vcName VARCHAR2(20);
+  3  	vcLoc VARCHAR2(20);
+  4  BEGIN
+  5  	SELECT dname,loc FROM dept WHERE deptno=10;
+  6  	DBMS_OUTPUT.PUT_LINE('Department Name: '||vcName);
+  7  	DBMS_OUTPUT.PUT_LINE('Department Location: '||vcLoc);
+  8  END;
+  9  /
+	SELECT dname,loc FROM dept WHERE deptno=10;
+	*
+ERROR at line 5:
+ORA-06550: line 5, column 2: 
+PLS-00428: an INTO clause is expected in this SELECT statement 
+
+
+SQL> desc dept;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                    NOT NULL NUMBER(4)
+ DNAME                                              VARCHAR2(14)
+ LOC                                                VARCHAR2(13)
+
+SQL> DECLARE
+  2  	vcName dept.dname%TYPE;
+  3  	vcLoc dept.loc%TYPE;
+  4  BEGIN
+  5  	SELECT dname,loc INTO vcName,vcLoc FROM dept WHERE deptno=10;
+  6  	DBMS_OUTPUT.PUT_LINE('Department Name: '||vcName);
+  7  	DBMS_OUTPUT.PUT_LINE('Department Location: '||vcLoc);
+  8  END;
+  9  /
+Department Name: ACCOUNTING                                                     
+Department Location: NEWYORK                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	deptDetail dept%ROWTYPE;
+  3  BEGIN
+  4  	SELECT * INTO deptDetail FROM dept WHERE deptno=10;
+  5  	DBMS_OUTPUT.PUT_LINE(deptDetail.deptno);
+  6  	DBMS_OUTPUT.PUT_LINE(deptDetail.dname);
+  7  	DBMS_OUTPUT.PUT_LINE(deptDetail.loc);
+  8  END;
+  9  /
+10                                                                              
+ACCOUNTING                                                                      
+NEWYORK                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2      SUBTYPE vc IS VARCHAR2;
+  3      vcName vc(20);
+  4      vcLoc vc(20);
+  5   BEGIN
+  6      SELECT dname,loc FROM dept WHERE deptno=10;
+  7      DBMS_OUTPUT.PUT_LINE('Department Name: '||vcName);
+  8      DBMS_OUTPUT.PUT_LINE('Department Location: '||vcLoc);
+  9   END;
+ 10  /
+    SELECT dname,loc FROM dept WHERE deptno=10;
+    *
+ERROR at line 6:
+ORA-06550: line 6, column 5: 
+PLS-00428: an INTO clause is expected in this SELECT statement 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2      SUBTYPE vc IS VARCHAR2;
+  3      vcName vc(20);
+  4      vcLoc vc(20);
+  5   BEGIN
+  6      SELECT dname,loc INTO vcName,vcLoc FROM dept WHERE deptno=10;
+  7      DBMS_OUTPUT.PUT_LINE('Department Name: '||vcName);
+  8      DBMS_OUTPUT.PUT_LINE('Department Location: '||vcLoc);
+  9*  END;
+SQL> /
+Department Name: ACCOUNTING                                                     
+Department Location: NEWYORK                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	SUBTYPE deptD IS dept%ROWTYPE;
+  3  	deptDetail deptD;
+  4  BEGIN
+  5  	SELECT * INTO deptDetail FROM dept WHERE deptno=10;
+  6  	DBMS_OUTPUT.PUT_LINE(deptDetail.deptno);
+  7  	DBMS_OUTPUT.PUT_LINE(deptDetail.dname);
+  8  	DBMS_OUTPUT.PUT_LINE(deptDetail.loc);
+  9  END;
+ 10  /
+10                                                                              
+ACCOUNTING                                                                      
+NEWYORK                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	vcEname employee.ename%TYPE;
+  3  	vcDname dept.dname%TYPE;
+  4  BEGIN
+  5  	SELECT ename,dname INTO vcEname,vcDname FROM employee e,dept d
+  6  		WHERE d.deptno=e.deptno;
+  7  	DBMS_OUTPUT.PUT_LINE(vcEname);
+  8  	DBMS_OUTPUT.PUT_LINE(vcDname);
+  9  END;
+ 10  /
+DECLARE
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows 
+ORA-06512: at line 5 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  	vcEname employee.ename%TYPE;
+  3  	vcDname dept.dname%TYPE;
+  4  BEGIN
+  5  	SELECT ename,dname INTO vcEname,vcDname FROM employee e,dept d
+  6  		WHERE d.deptno=e.deptno and empno=7689;
+  7  	DBMS_OUTPUT.PUT_LINE(vcEname);
+  8  	DBMS_OUTPUT.PUT_LINE(vcDname);
+  9* END;
+SQL> /
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 5 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  	vcEname employee.ename%TYPE;
+  3  	vcDname dept.dname%TYPE;
+  4  BEGIN
+  5  	SELECT ename,dname INTO vcEname,vcDname FROM employee e,dept d
+  6  		WHERE d.deptno=e.deptno and empno=7698;
+  7  	DBMS_OUTPUT.PUT_LINE(vcEname);
+  8  	DBMS_OUTPUT.PUT_LINE(vcDname);
+  9* END;
+SQL> /
+blake                                                                           
+ACCOUNTING                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2   TYPE details IS RECORD(
+  3  	vcEname employee.ename%TYPE,
+  4  	vcDname dept.dname%TYPE);
+  5   rec details;
+  6  BEGIN
+  7  	SELECT ename,dname INTO rec FROM employee e,dept d
+  8  		WHERE d.deptno=e.deptno and empno=7698;
+  9  	DBMS_OUTPUT.PUT_LINE(rec.vcEname);
+ 10  	DBMS_OUTPUT.PUT_LINE(rec.vcDname);
+ 11* END;
+SQL> /
+blake                                                                           
+ACCOUNTING                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2    TYPE EmpTable IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;
+  3    Emp_tab EmpTable;
+  4  BEGIN
+  5    Emp_tab(1):=200;
+  6    Emp_tab(2):=300;
+  7    DBMS_OUTPUT.PUT_LINE(Emp_tab(1) || '        '|| Emp_tab(2));
+  8  END;
+  9  /
+200        300                                                                  
+
+PL/SQL procedure successfully completed.
+
+SQL> spool off

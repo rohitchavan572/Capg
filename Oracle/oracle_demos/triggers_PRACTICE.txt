@@ -1,0 +1,120 @@
+CREATE OR REPLACE TRIGGER trgdemo1
+    AFTER INSERT ON dept
+    BEGIN
+    	DBMS_OUTPUT.PUT_LINE('Trigger fired for insert in dept table');
+    END;
+    /
+
+-----
+insert into dept values(67,'Triggers','Lab9');
+-----
+
+CREATE OR REPLACE TRIGGER trgdemo2
+    AFTER UPDATE OF sal ON employee
+    FOR EACH ROW
+    BEGIN
+    	DBMS_OUTPUT.PUT_LINE('Trigger fired for update of sal on employee');
+    END;
+   /
+
+------
+UPDATE employee SET sal=sal+.2*sal;
+------
+
+
+CREATE OR REPLACE TRIGGER trgdemo2
+    AFTER UPDATE OF sal ON employee
+    BEGIN
+    	DBMS_OUTPUT.PUT_LINE('Trigger fired for update of sal');
+    END;
+    /
+------
+UPDATE employee SET sal=sal+.2*sal;
+------
+
+CREATE OR REPLACE TRIGGER demo3
+    AFTER INSERT OR UPDATE OR DELETE ON dept
+    BEGIN
+    	DBMS_OUTPUT.PUT_LINE('trigger fired after for any NSERT OR UPDATE OR DELETE ON dept');
+    END;
+   /
+
+-----
+INSERT INTO dept VALUES(59,'dd','yy');
+-----
+
+ALTER TRIGGER trgdemo1 DISABLE;
+------
+INSERT INTO dept VALUES(69,'dd','yy');
+------
+
+ALTER TRIGGER trgdemo1 ENABLE;
+------
+INSERT INTO dept VALUES(79,'dd','yy');
+------
+
+DROP TRIGGER trgdemo1;
+------
+CREATE OR REPLACE TRIGGER trgdemo2
+   AFTER UPDATE OF sal ON employee
+     FOR EACH ROW
+     BEGIN
+        DBMS_OUTPUT.PUT_LINE('Trigger fired');
+       DBMS_OUTPUT.PUT_LINE('Old Salary : '||:old.sal||'  
+				Revised Salary '||:new.sal);
+    END;
+    /
+------
+UPDATE employee SET sal=sal+300;
+
+---
+CREATE OR REPLACE TRIGGER trg_before_insert
+    BEFORE INSERT 
+	ON dept
+	FOR EACH ROW
+    DECLARE 
+	v_username varchar2(20);
+    BEGIN
+
+	--find username of the person performing insert into the table
+	SELECT user INTO v_username FROM DUAL;
+    	DBMS_OUTPUT.PUT_LINE('Trigger trg_before_insert fired by: '||v_username);
+	DBMS_OUTPUT.PUT_LINE('New Department Name : '|| :new.dname ||' Old Dept: '|| :old.dname);
+    END;
+    /
+------
+insert into dept values(61,'Triggers61','Lab9');
+
+
+-----
+
+
+CREATE OR REPLACE TRIGGER trg_after_insert
+    AFTER INSERT 
+	ON dept
+	REFERENCING NEW AS new_val
+	FOR EACH ROW
+	WHEN (new_val.deptno<100)
+    DECLARE 
+	v_username varchar2(20);
+    BEGIN
+
+	--find username of the person performing insert into the table
+	SELECT user INTO v_username FROM DUAL;
+    	DBMS_OUTPUT.PUT_LINE('Trigger trg_after_insert fired by: '||v_username);
+	DBMS_OUTPUT.PUT_LINE('New Department Name : '|| :new_val.dname ||' Old Dept: '|| :old.dname);
+    END;
+    /
+
+------
+insert into dept values(61,'Triggers61','Lab9');
+
+
+
+
+
+
+
+
+
+-----

@@ -1,0 +1,207 @@
+ CREATE OR REPLACE PACKAGE packdemo1
+    AS
+    	PROCEDURE proc2;
+    	FUNCTION fnLength RETURN NUMBER;
+    END packdemo1;
+    /
+------------------------------------------------------------
+CREATE or replace PACKAGE BODY packdemo1
+    AS
+    	PROCEDURE proc2 IS
+    	BEGIN
+    		DBMS_OUTPUT.PUT_LINe('Procedure in package');
+    	END proc2;
+
+    	FUNCTION fnLength RETURN NUMBER IS
+    	BEGIN
+    		DBMS_OUTPUT.PUT_LINe('Function in package');
+   		RETURN 1;
+   	END fnLength;
+
+  END packdemo1;
+ /
+
+execute packdemo1.p5;
+select packdemo1.fnlength from dual;
+--------------------------------------------------------------
+CREATE or replace PACKAGE BODY packdemo1
+    AS
+    	PROCEDURE proc2 IS
+    	BEGIN
+    		DBMS_OUTPUT.PUT_LINe('Procedure2 in package');
+    	END proc2;
+
+	PROCEDURE proc3 IS
+    	BEGIN
+    		DBMS_OUTPUT.PUT_LINe('Procedure3 in package');
+    	END proc3;
+
+    	FUNCTION fnLength RETURN NUMBER IS
+    	BEGIN
+    		DBMS_OUTPUT.PUT_LINe('Function in package');
+   		RETURN 1;
+   	END fnLength;
+
+  END packdemo1;
+ /
+-------------------------------staff_data PACKAGE DEFINATION-----------------------------------
+ CREATE OR REPLACE PACKAGE staff_data
+    AS
+    	TYPE staffcurtyp IS REF CURSOR 
+		RETURN STAFF_MASTERS%ROWTYPE;
+	PROCEDURE open_staff_cur(staff_cur IN OUT staffcurtyp);
+		
+    END staff_data;
+    /
+--------------------------------staff_data PACKAGE BODY----------------------------
+ CREATE OR REPLACE PACKAGE BODY staff_data
+    AS
+    	PROCEDURE open_staff_cur(staff_cur IN OUT staffcurtyp) IS
+	BEGIN
+		OPEN staff_cur FOR SELECT * FROM STAFF_MASTERS;
+	END open_staff_cur;
+		
+    END staff_data;
+    /
+
+-------------------------DECLARE VAR FOR IN OUT -------------------
+
+VARIABLE cv REFCURSOR;
+
+-----------SET AUTOPRINT ON to display the query results automatically -------------------
+SET AUTOPRINT ON;
+
+-----------EXCECUTE THE PROC WITH THE PACKAGE REFERENCE AND PASSING BIND VAR
+
+EXECUTE staff_data.open_staff_cur(:cv);
+
+--------------------------PACKAGE DEFINATION------------------------------
+CREATE PACKAGE demo3
+    AS
+    	TYPE details IS REF CURSOR;
+    	PROCEDURE viewDept(deptCur IN OUT details);
+    END demo3;
+    /
+
+--------------------------PACKAGE BODY------------------------------
+
+ CREATE PACKAGE BODY demo3
+    AS
+    	PROCEDURE viewDept(deptCur IN OUT details) IS
+    	BEGIN
+    		OPEN deptCur FOR sELECT * FROM dept;
+    	END  viewDept;
+    END demo3;
+    /
+--------------------------PACKAGE EXECUTION------------------------------
+VARIABLE v REFCURSOR
+SET AUTOPRINT ON;
+exec demo3.viewDept(:v);
+------------------------------------------------------------------------
+---------------------------------------------------------------------------
+/*
+We can also create a package with the different REF CURSOR
+TYPES available (that is define the REF CURSOR type in a
+separate package), and then reference that type in the
+standalone procedure.
+*/
+CREATE OR REPLACE PACKAGE cv_types AS
+	TYPE GenericCurTyp IS REF CURSOR;
+	TYPE staffCurTyp IS REF CURSOR RETURN staff_masters%ROWTYPE;
+	TYPE deptCurTyp IS REF CURSOR RETURN department_masters%ROWTYPE;
+END cv_types;
+/
+
+--------------------standalone procedure that will reference the cursor-----
+CREATE or REPLACE PROCEDURE open_pro(generic_cv IN OUT cv_types.GenericCurTyp,
+				choice IN NUMBER) IS
+BEGIN
+	IF choice = 1 THEN
+		OPEN generic_cv FOR SELECT * FROM staff_masters;
+	ELSIF choice = 2 THEN
+		OPEN generic_cv FOR SELECT * FROM department_masters;
+	ELSIF choice = 3 THEN
+		OPEN generic_cv FOR SELECT * FROM EMP;
+	END IF;
+END open_pro;
+/
+/*-----To execute this procedure you need to create the variable
+of type REFCURSOR, and pass that variable in the
+Open_pro procedure-----*/
+----------------------------------------------------------------------
+VARIABLE c1 REFCURSOR;
+----------------------------------------------------------------------
+SET AUTOPRINT ON;
+----------------------------------------------------------------------
+EXECUTE OPEN_PRO(:c1,2);
+---------------------------AUTONOMOUS_TRANSACTION-------------------------------------------
+DECLARE 
+	PRAGMA AUTONOMOUS_TRANSACTION;
+BEGIN	
+/*We will insert 8 rows using an anonymous block edclared as an AT*/
+	FOR i IN 51 .. 59 LOOP
+		INSERT INTO dept VALUES(i,'Department'||i,'Block'||i);
+	END LOOP;
+	commit;
+END;
+/
+--------------------
+create sequence errorid start with 20000;
+-------
+CREATE OR REPLACE PROCEDURE logerror2
+     AS
+     PRAGMA AUTONOMOUS_TRANSACTION;
+     BEGIN
+        INSERT INTO errorlog VALUES(errorid.nextval,'dff',sysdate);
+        COMMIT;
+     END;
+/
+
+---------------
+BEGIN
+      INSERT INTO dept VALUES(54,'ee','rr');
+      INSERT INTO dept VALUES(NULL,'ee','rr');
+   EXCEPTION
+       WHEN OTHERS THEN
+              logerror2;
+    	  rollback;
+    END;
+    /
+
+----------------------
+CREATE TABLE STAFFCOUNT(cur_date DATE, no_of_staff NUMBER);
+CREATE OR REPLACE PROCEDURE NAME_COUNT
+	AUTHID CURRENT_USER
+	IS
+	BEGIN
+	DECLARE
+	N NUMBER;
+		BEGIN
+			SELECT COUNT(*) INTO N FROM
+			SYSTEM.STAFF_MASTERS;
+			INSERT INTO STAFFCOUNT VALUES(SYSDATE, N);
+		END;
+END;
+
+
+-------------------
+BEGIN
+   INSERT INTO dept VALUES(54,'ee','rr');
+   INSERT INTO dept VALUES(NULL,'ee','rr');
+EXCEPTION
+   WHEN OTHERS THEN
+          logerror2_PROC;
+	  rollback;
+END;
+/
+------
+CREATE SEQUENCE errorid START WITH 20000;
+------
+CREATE OR REPLACE PROCEDURE logerror2_PROC
+AS
+PRAGMA AUTONOMOUS_TRANSACTION;
+BEGIN
+    INSERT INTO errorlog VALUES(errorid.nextval,'dff',sysdate);	
+    COMMIT;
+END;
+/

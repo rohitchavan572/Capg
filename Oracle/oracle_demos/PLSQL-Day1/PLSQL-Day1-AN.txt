@@ -1,0 +1,1002 @@
+SQL> DECLARE
+  2     nSal NUMBER;
+  3     nMinSal NUMBER;
+  4  BEGIN
+  5     SELECT sal INTO nSal FROM employee WHERE empno=7698;
+  6     SELECT min(sal) INTO nMinSal FROM employee;
+  7     IF nSal<nMinSal
+  8     THEN
+  9             UPDATE employee SET sal=sal*.2 WHERE empno=7698;
+ 10     END IF;
+ 11  END;
+ 12  /
+
+PL/SQL procedure successfully completed.
+
+SQL> set serveroutput on
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2     vcAddress VARCHAR2(30);
+  3  BEGIN
+  4     sELECT Student_Address INTO vcAddress FROM student_masters
+  5             WHERE Student_Code =1003;
+  6     IF vcAddress IS NULL
+  7     THEN
+  8             UPDATE student_masters SET student_address='Chennai'
+  9                     WHERE student_code=1003;
+ 10     ELSIF vcAddress='Chennai'
+ 11     THEN
+ 12             DBMS_OUTPUT.PUT_LINE('Residing in chennai');
+ 13     ELSE
+ 14             DBMS_OUTPUT.PUT_LINE('Residing in other city');
+ 15     END IF;
+ 16  END;
+ 17  /
+
+PL/SQL procedure successfully completed.
+
+SQL> sELECT Student_Address FROM student_masters WHERE Student_Code =1003;
+
+STUDENT_ADDRESS
+--------------------------------------------------------------------------------
+
+Chennai
+
+SQL>
+SQL> BEGIN
+  2  	LOOP
+  3  		DBMS_OUTPUT.PUT_LINE('test');
+  4  	END LOOP;
+  5  END;
+  6  /
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+BEGIN
+*
+ERROR at line 1:
+ORA-20000: ORU-10027: buffer overflow, limit of 2000 bytes 
+ORA-06512: at "SYS.DBMS_OUTPUT", line 32 
+ORA-06512: at "SYS.DBMS_OUTPUT", line 97 
+ORA-06512: at "SYS.DBMS_OUTPUT", line 112 
+ORA-06512: at line 3 
+
+
+SQL> BEGIN
+  2  	LOOP
+  3  		DBMS_OUTPUT.PUT_LINE('test');
+  4  		EXIT;
+  5  	END LOOP;
+  6  END;
+  7  .
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN
+  2  	LOOP
+  3  		DBMS_OUTPUT.PUT_LINE('test');
+  4  		EXIT;
+  5  	END LOOP;
+  6* END;
+SQL> /
+test                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2        nNum NUMBER:=1;
+  3  BEGIN
+  4  	LOOP
+  5  		DBMS_OUTPUT.PUT_LINE('test');
+  6  		nNum:=nNum+1;
+  7  		EXIT WHEN nNum=5;
+  8  	END LOOP;
+  9* END;
+SQL> /
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2        nNum NUMBER:=1;
+  3  BEGIN
+  4  	LOOP
+  5  		EXIT WHEN nNum=5;
+  6  		DBMS_OUTPUT.PUT_LINE('test');
+  7  		nNum:=nNum+1;
+  8  	END LOOP;
+  9* END;
+ 10  /
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2        nNum NUMBER:=1;
+  3  BEGIN
+  4  	LOOP
+  5  		EXIT WHEN nNum<5;
+  6  		DBMS_OUTPUT.PUT_LINE('test');
+  7  		nNum:=nNum+1;
+  8  	END LOOP;
+  9* END;
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2        nNum NUMBER:=1;
+  3  BEGIN
+  4  	LOOP
+  5  		EXIT WHEN nNum>5;
+  6  		DBMS_OUTPUT.PUT_LINE('test');
+  7  		nNum:=nNum+1;
+  8  	END LOOP;
+  9* END;
+SQL> /
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2        nNum NUMBER:=1;
+  3  BEGIN
+  4  	LOOP
+  5  		DBMS_OUTPUT.PUT_LINE('test');
+  6  		nNum:=nNum+1;
+  7  		EXIT WHEN nNum>5;
+  8  	END LOOP;
+  9* END;
+ 10  /
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2        nNum NUMBER:=1;
+  3  BEGIN
+  4  	WHILE nNUM<5
+  5  	LOOP
+  6  		DBMS_OUTPUT.PUT_LINE('test');
+  7  		nNum:=nNum+1;
+  8  	END LOOP;
+  9* END;
+SQL> /
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN
+  2  	FOR index1 IN 1..10
+  3  	LOOP
+  4  		DBMS_OUTPUT.PUT_LINE('test');
+  5  	END LOOP;
+  6* END;
+SQL> /
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN
+  2  	FOR index1 IN REVERSE 5..1
+  3  	LOOP
+  4  		DBMS_OUTPUT.PUT_LINE('test'||index1);
+  5  	END LOOP;
+  6* END;
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN
+  2  	FOR index1 IN REVERSE 5..1
+  3  	LOOP
+  4  		DBMS_OUTPUT.PUT_LINE('test');
+  5  	END LOOP;
+  6* END;
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN
+  2  	FOR index1 IN REVERSE 1..5
+  3  	LOOP
+  4  		DBMS_OUTPUT.PUT_LINE('test');
+  5  	END LOOP;
+  6* END;
+SQL> /
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+test                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN
+  2  	FOR index1 IN REVERSE 1..5
+  3  	LOOP
+  4  		DBMS_OUTPUT.PUT_LINE('test'||index1);
+  5  	END LOOP;
+  6* END;
+SQL> /
+test5                                                                           
+test4                                                                           
+test3                                                                           
+test2                                                                           
+test1                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	nOuter NUMBER:=10;
+  3  BEGIN
+  4  	DBMS_OUTPUT.PUT_LINE('Outer Block');
+  5  	DBMS_OUTPUT.PUT_LINE(nOuter);
+  6  	DECLARE
+  7  		nInner NUMBER:=10;
+  8  	BEGIN
+  9  	  DBMS_OUTPUT.PUT_LINE('Inner Block');
+ 10  	  DBMS_OUTPUT.PUT_LINE(nInner);
+ 11  	END;
+ 12  END;
+ 13  /
+Outer Block                                                                     
+10                                                                              
+Inner Block                                                                     
+10                                                                              
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	nNum NUMBER:=10;
+  3  BEGIN
+  4  	DBMS_OUTPUT.PUT_LINE('Outer Block');
+  5  	DBMS_OUTPUT.PUT_LINE(nNum);
+  6  	DECLARE
+  7  		nNum NUMBER:=20;
+  8  	BEGIN
+  9  	  DBMS_OUTPUT.PUT_LINE('Inner Block');
+ 10  	  DBMS_OUTPUT.PUT_LINE(nNum);
+ 11  	END;
+ 12  END;
+ 13  /
+Outer Block                                                                     
+10                                                                              
+Inner Block                                                                     
+20                                                                              
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  	nNum NUMBER:=10;
+  3  BEGIN
+  4  	DBMS_OUTPUT.PUT_LINE('Outer Block');
+  5  	DBMS_OUTPUT.PUT_LINE(nNum);
+  6  	DECLARE
+  7  		nNum NUMBER:=20;
+  8  	BEGIN
+  9  	  DBMS_OUTPUT.PUT_LINE('Inner Block');
+ 10  	  DBMS_OUTPUT.PUT_LINE(nNum);
+ 11  	END;
+ 12  	DBMS_OUTPUT.PUT_LINE(nNum);
+ 13  END;
+ 14  
+ 15  /
+Outer Block                                                                     
+10                                                                              
+Inner Block                                                                     
+20                                                                              
+10                                                                              
+
+PL/SQL procedure successfully completed.
+
+SQL> <<OUTER>>
+  2  DECLARE
+  3  	nNum NUMBER:=10;
+  4  BEGIN
+  5  	DBMS_OUTPUT.PUT_LINE('Outer Block');
+  6  	DBMS_OUTPUT.PUT_LINE(nNum);
+  7  	<<INNER>>
+  8  	DECLARE
+  9  		nNum NUMBER:=20;
+ 10  	BEGIN
+ 11  	  DBMS_OUTPUT.PUT_LINE('Inner Block');
+ 12  	  DBMS_OUTPUT.PUT_LINE(nNum);
+ 13  	  DBMS_OUTPUT.PUT_LINE(OUTER.nNum);
+ 14  	END;
+ 15  	DBMS_OUTPUT.PUT_LINE(nNum);
+ 16  END;
+ 17  /
+Outer Block                                                                     
+10                                                                              
+Inner Block                                                                     
+20                                                                              
+10                                                                              
+10                                                                              
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  <<OUTER>>
+  2  DECLARE
+  3  	nNum NUMBER:=10;
+  4  BEGIN
+  5  	DBMS_OUTPUT.PUT_LINE('Outer Block');
+  6  	DBMS_OUTPUT.PUT_LINE(nNum);
+  7  	<<INNER>>
+  8  	DECLARE
+  9  		nNum NUMBER:=20;
+ 10  	BEGIN
+ 11  	  DBMS_OUTPUT.PUT_LINE('Inner Block');
+ 12  	  DBMS_OUTPUT.PUT_LINE(nNum);
+ 13  	  DBMS_OUTPUT.PUT_LINE(OUTER.nNum);
+ 14  	  DBMS_OUTPUT.PUT_LINE(INNER.nNum);
+ 15  	END;
+ 16* END;
+ 17  /
+Outer Block                                                                     
+10                                                                              
+Inner Block                                                                     
+20                                                                              
+10                                                                              
+20                                                                              
+
+PL/SQL procedure successfully completed.
+
+SQL> spool off
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

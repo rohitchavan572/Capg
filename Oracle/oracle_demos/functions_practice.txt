@@ -1,0 +1,37 @@
+CREATE OR REPLACE FUNCTION fnLength(str VARCHAR2)
+    RETURN NUMBER
+    AS
+    len NUMBER;
+    BEGIN
+    	len:=LENGTH(str);
+    	RETURN len;
+    END fnLength;
+    /
+----------------------------------------------------------
+SELECT fnLength('Test') FROM dual;
+----------------------------------------------------------
+VARIABLE len NUMBER;
+execute :len:=fnLength('Test');
+print len;
+----------------------------------------------------------
+BEGIN
+	DBMS_OUTPUT.PUT_LINE(fnLength('TEst'));
+END;
+----------------------------------------------------------
+CREATE OR REPLACE FUNCTION
+	get_avg_sal(p_deptno in NUMBER)
+	RETURN NUMBER AS 
+	--VARIABLE DECLARATION
+	v_sal NUMBER;
+BEGIN
+	SELECT Trunc(Avg(staff_sal)) INTO V_Sal
+	FROM staff_master
+	WHERE deptno=p_deptno;
+	IF v_sal IS NULL THEN
+		v_sal := -1 ;
+	END IF;
+	return v_sal;
+EXCEPTION
+	WHEN OTHERS THEN
+	return -2; --signifies any other errors
+END get_avg_sal;

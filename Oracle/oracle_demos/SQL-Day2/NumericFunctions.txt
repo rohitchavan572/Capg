@@ -1,0 +1,86 @@
+
+SQL> SELECT ceil(24.567
+  2  ;
+
+*
+ERROR at line 2:
+ORA-00907: missing right parenthesis
+
+
+SQL> SELECT ceil(24.567) FROM dual;
+
+CEIL(24.567)
+------------
+          25
+
+SQL> SELECT floor(24.567) FROM dual;
+
+FLOOR(24.567)
+-------------
+           24
+
+SQL> SELECT round(24.567) FROM dual;
+
+ROUND(24.567)
+-------------
+           25
+
+SQL> SELECT round(24.567,1) FROM dual;
+
+ROUND(24.567,1)
+---------------
+           24.6
+
+SQL> SELECT round(24.567,-1) FROM dual;
+
+ROUND(24.567,-1)
+----------------
+              20
+
+SQL> SELECT truncate(24.567,1) FROM dual;
+SELECT truncate(24.567,1) FROM dual
+       *
+ERROR at line 1:
+ORA-00904: "TRUNCATE": invalid identifier
+
+
+SQL> SELECT trunc(24.567,1) FROM dual;
+
+TRUNC(24.567,1)
+---------------
+           24.5
+
+SQL> SELECT power(5,2) FROM dual;
+
+POWER(5,2)
+----------
+        25
+
+SQL> SELECT sqrt(16) FROM dual;
+
+  SQRT(16)
+----------
+         4
+
+SQL> SELECT mod(5,2) FROM dual;
+
+  MOD(5,2)
+----------
+         1
+
+SQL> SELECT ceil(sal) FROM employee;
+
+ CEIL(SAL)
+----------
+      5100
+      2850
+      2450
+      1600
+      1250
+      2975
+      1250
+      3000
+
+8 rows selected.
+
+SQL>

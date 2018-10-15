@@ -1,0 +1,97 @@
+SQL> SELECT TO_CHAR(2560,'$9,999.0') FROM dual;
+
+TO_CHAR(2                                                                                                                                                                                                                                                                                                   
+---------                                                                                                                                                                                                                                                                                                   
+ $2,560.0                                                                                                                                                                                                                                                                                                   
+
+SQL> SELECT TO_CHAR(2560,'$2,2222.0') FROM dual;
+SELECT TO_CHAR(2560,'$2,2222.0') FROM dual
+                    *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> SELECT TO_CHAR(2560,'$0,00,000.00') FROM dual;
+
+TO_CHAR(2560,                                                                                                                                                                                                                                                                                               
+-------------                                                                                                                                                                                                                                                                                               
+ $0,02,560.00                                                                                                                                                                                                                                                                                               
+
+SQL> SELECT TO_CHAR(sal,'$9,999.00') FROM employee;
+
+TO_CHAR(SA                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+ $5,100.00                                                                                                                                                                                                                                                                                                  
+ $2,850.00                                                                                                                                                                                                                                                                                                  
+ $2,450.00                                                                                                                                                                                                                                                                                                  
+ $1,600.00                                                                                                                                                                                                                                                                                                  
+ $1,250.00                                                                                                                                                                                                                                                                                                  
+ $2,975.00                                                                                                                                                                                                                                                                                                  
+ $1,250.00                                                                                                                                                                                                                                                                                                  
+ $3,000.00                                                                                                                                                                                                                                                                                                  
+
+8 rows selected.
+
+SQL> SELECT TO_CHAR(sysdate,'DD MONTH YY') FROM dual;
+
+TO_CHAR(SYSDATE                                                                                                                                                                                                                                                                                             
+---------------                                                                                                                                                                                                                                                                                             
+20 AUGUST    14                                                                                                                                                                                                                                                                                             
+
+SQL> SELECT TO_CHAR(sysdate,'DDth MONTH YY') FROM dual;
+
+TO_CHAR(SYSDATE,'                                                                                                                                                                                                                                                                                           
+-----------------                                                                                                                                                                                                                                                                                           
+20TH AUGUST    14                                                                                                                                                                                                                                                                                           
+
+SQL> SELECT TO_CHAR(sysdate,'DDspth MONTH YY') FROM dual;
+
+TO_CHAR(SYSDATE,'DDSPTHMONT                                                                                                                                                                                                                                                                                 
+---------------------------                                                                                                                                                                                                                                                                                 
+TWENTIETH AUGUST    14                                                                                                                                                                                                                                                                                      
+
+SQL> SELECT TO_DATE('20TH MAY 14','DDth MONTH YY') FROM dual;
+SELECT TO_DATE('20TH MAY 14','DDth MONTH YY') FROM dual
+               *
+ERROR at line 1:
+ORA-01861: literal does not match format string 
+
+
+SQL> SELECT TO_DATE('20TH MAY 14','DDth MONTH YY') FROM dual;
+SELECT TO_DATE('20TH MAY 14','DDth MONTH YY') FROM dual
+               *
+ERROR at line 1:
+ORA-01861: literal does not match format string 
+
+
+SQL> select TO_DATE ('May 22,2014','Month DD, YYYY') FROM dual;
+
+TO_DATE('                                                                                                                                                                                                                                                                                                   
+---------                                                                                                                                                                                                                                                                                                   
+22-MAY-14                                                                                                                                                                                                                                                                                                   
+
+SQL> select TO_DATE ('May 22,2014','Month DD, YYYY') FROM dual;
+
+TO_DATE('                                                                                                                                                                                                                                                                                                   
+---------                                                                                                                                                                                                                                                                                                   
+22-MAY-14                                                                                                                                                                                                                                                                                                   
+
+SQL> SELECT TO_CHAR(sysdate,'D') FROM dual;
+
+T                                                                                                                                                                                                                                                                                                           
+-                                                                                                                                                                                                                                                                                                           
+4                                                                                                                                                                                                                                                                                                           
+
+SQL> SELECT TO_CHAR(sysdate,'d') FROM dual;
+
+T                                                                                                                                                                                                                                                                                                           
+-                                                                                                                                                                                                                                                                                                           
+4                                                                                                                                                                                                                                                                                                           
+
+SQL> SELECT TO_CHAR(sysdate,'DD') FROM dual;
+
+TO                                                                                                                                                                                                                                                                                                          
+--                                                                                                                                                                                                                                                                                                          
+20                                                                                                                                                                                                                                                                                                          
+
+SQL> spool off

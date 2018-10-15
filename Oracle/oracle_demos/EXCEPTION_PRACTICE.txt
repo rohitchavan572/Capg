@@ -1,0 +1,157 @@
+DECLARE
+     TYPE rec_details IS RECORD(
+    	vcEname employee.ename%TYPE,
+    	vcDname dept.dname%TYPE);
+     v_rec rec_details;
+    BEGIN
+    	SELECT ename,dname INTO v_rec FROM employee e,dept d
+    		WHERE d.deptno=e.deptno and empno=1111;
+    	DBMS_OUTPUT.PUT_LINE('EMP NAME  :' || v_rec.vcEname);
+   	DBMS_OUTPUT.PUT_LINE('DEPT NAME :' || v_rec.vcDname);
+    EXCEPTION
+	WHEN NO_DATA_FOUND THEN
+	DBMS_OUTPUT.PUT_LINE('EMP NO DOES NOT EXISTS!');  
+  
+ END;
+/
+
+DECLARE
+     TYPE rec_details IS RECORD(
+    	vcEname employee.ename%TYPE,
+    	vcDname dept.dname%TYPE);
+     v_rec rec_details;
+    BEGIN
+    	SELECT ename,dname INTO v_rec FROM employee e,dept d
+    		WHERE d.deptno=e.deptno;
+    	DBMS_OUTPUT.PUT_LINE('EMP NAME  :' || v_rec.vcEname);
+   	DBMS_OUTPUT.PUT_LINE('DEPT NAME :' || v_rec.vcDname);
+    EXCEPTION
+	WHEN NO_DATA_FOUND THEN
+		DBMS_OUTPUT.PUT_LINE('EMP NO DOES NOT EXISTS!');  
+  	WHEN TOO_MANY_ROWS THEN
+    		DBMS_OUTPUT.PUT_LINE('More than 1 employee are working in this department');
+	WHEN OTHERS THEN
+  		DBMS_OUTPUT.PUT_LINE('Other exception occurs');
+		DBMS_OUTPUT.PUT_LINE(SQLCODE||SQLERRM);
+ END;
+/
+
+
+
+DECLARE
+     TYPE rec_details IS RECORD(
+    	vcEname employee.ename%TYPE,
+    	vcDname dept.dname%TYPE);
+     v_rec rec_details;
+	result NUMBER;
+    BEGIN
+    	SELECT ename,dname INTO v_rec FROM employee e,dept d
+    		WHERE d.deptno=e.deptno;
+    	DBMS_OUTPUT.PUT_LINE('EMP NAME  :' || v_rec.vcEname);
+   	DBMS_OUTPUT.PUT_LINE('DEPT NAME :' || v_rec.vcDname);
+	result:=10/0;
+    EXCEPTION
+	WHEN NO_DATA_FOUND THEN
+		DBMS_OUTPUT.PUT_LINE('EMP NO DOES NOT EXISTS!');  
+  	WHEN OTHERS THEN
+  		DBMS_OUTPUT.PUT_LINE('Other exception occurs');
+		DBMS_OUTPUT.PUT_LINE(SQLCODE||SQLERRM);
+ END;
+/
+
+create table errorlog(errorno number PRIMARY KEY, 
+		description varchar2(100),errordate  date);
+
+DECLARE
+     TYPE rec_details IS RECORD(
+    	vcEname employee.ename%TYPE,
+    	vcDname dept.dname%TYPE);
+     	v_rec rec_details;
+	v_scode NUMBER;
+	v_smsg VARCHAR2(100);
+    BEGIN
+    	SELECT ename,dname INTO v_rec FROM employee e,dept d
+    		WHERE d.deptno=e.deptno;
+    	DBMS_OUTPUT.PUT_LINE('EMP NAME  :' || v_rec.vcEname);
+   	DBMS_OUTPUT.PUT_LINE('DEPT NAME :' || v_rec.vcDname);
+    EXCEPTION
+	WHEN NO_DATA_FOUND THEN
+		DBMS_OUTPUT.PUT_LINE('EMP NO DOES NOT EXISTS!');  
+  	WHEN OTHERS THEN
+  		DBMS_OUTPUT.PUT_LINE('Other exception occurs');
+		v_scode:=SQLCODE;
+		v_smsg:=SQLERRM;
+		INSERT INTO ERRORLOG VALUES(v_scode,v_smsg,sysdate);
+ END;
+/
+ DECLARE
+    	CURSOR cname IS SELECT ename FROM employee WHERE deptno=&num;
+    	vcEname employee.ename%TYPE;
+	--
+    	no_emp_exp EXCEPTION;--user defined exception
+    BEGIN
+    	OPEN cname;
+    	FETCH cname INTO vcEname;
+    	IF cname%ROWCOUNT>0
+   	THEN
+   	LOOP
+   		DBMS_OUTPUT.PUT_LINE(vcEname);
+   		EXIT WHEN cname%NOTFOUND;
+   		FETCH cname INTO vcEname;
+   	END LOOP;
+   	ELSE
+   		DBMS_OUTPUT.PUT_LINE('msg');
+		--
+   		RAISE no_emp_exp;   		
+   	END IF;
+	--
+   EXCEPTION
+   	WHEN no_emp_exp THEN
+   		DBMS_OUTPUT.PUT_LINE('No Employee exists');
+  		DBMS_OUTPUT.PUT_LINE(SQLCODE||SQLERRM);
+  END;
+/
+
+--PRAGMA_INIT
+ DECLARE
+    	CURSOR cname IS SELECT ename FROM employee WHERE deptno=&num;
+    	vcEname employee.ename%TYPE;
+	--
+    	no_emp_exp EXCEPTION;--user defined exception
+	PRAGMA EXCEPTION_INIT(no_emp_exp,-20777);
+    BEGIN
+    	OPEN cname;
+    	FETCH cname INTO vcEname;
+    	IF cname%ROWCOUNT>0
+   	THEN
+   	LOOP
+   		DBMS_OUTPUT.PUT_LINE(vcEname);
+   		EXIT WHEN cname%NOTFOUND;
+   		FETCH cname INTO vcEname;
+   	END LOOP;
+   	ELSE
+   		--DBMS_OUTPUT.PUT_LINE('msg');
+		--RAISE no_emp_exp; 
+		RAISE_APPLICATION_ERROR(-20777,'No EMOPLOYEE RECORDS FOUND');  		
+   	END IF;
+	--
+   EXCEPTION
+   	WHEN no_emp_exp THEN
+   		DBMS_OUTPUT.PUT_LINE('No Employee exists');
+  		DBMS_OUTPUT.PUT_LINE(SQLCODE||SQLERRM);
+  END;
+/
+
+
+
+--
+--
+    	
+
+
+
+
+
+
+
+ 

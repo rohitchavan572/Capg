@@ -1,0 +1,182 @@
+CREATE A FOLDER D:\TEMP 
+opne sql cmd prompt
+----
+
+NOW OPEN INIT.ORA AND 
+utl_file_dir='D:\TEMP' or utl_file_dir=*
+ AND SAVE
+---
+conn / as sysdba
+
+grant execute on utl_file to public;
+
+create directory TEMP as 'D:\TEMP\';
+
+grant read,write on DIRECTORY TEMP to PUBLIC;
+
+--now create file test.txt' in TEMP directory;
+
+
+
+---
+NOW STOP AND AGAIN START THE ORACLE DB TO IMPLEMENT THE CHANGES
+----
+declare
+    vInHandle utl_file.file_type;-- File Handler
+    vNewLine varchar2(40);
+    begin
+    vInHandle :=utl_file.fopen('TEMP','test.txt','R');
+    utl_file.get_line(vInHandle ,vNewLine);
+    utl_file.fclose(vInHandle );
+    dbms_output.put_line(vNewLine);
+    end;
+ 
+  /
+
+--------
+DECLARE
+fileID UTL_FILE.FILE_TYPE;
+strbuffer VARCHAR2(100);
+mynum NUMBER;
+BEGIN
+fileID := UTL_FILE.FOPEN ('TEMP', 'numlist.txt','R');
+UTL_FILE.GET_LINE (fileID, strbuffer);
+mynum := TO_NUMBER (strbuffer);
+dbms_output.put_line(mynum);
+END;
+/
+
+-------
+PROCEDURE emp2file
+IS
+fileID UTL_FILE.FILE_TYPE;
+BEGIN
+fileID := UTL_FILE.FOPEN ('TEMP', 'TEST.TXT', 'W');
+/* Quick and dirty construction here! */
+FOR emprec IN (SELECT * FROM emp)
+LOOP
+UTL_FILE.PUT_LINE(TO_CHAR (emprec.empno) || ',' ||emprec.ename || ',' ||TO_CHAR (emprec.deptno));
+END LOOP;
+UTL_FILE.FFLUSH (fileID);
+UTL_FILE.FCLOSE (fileID);
+END;
+
+
+--------
+DECLARE
+corporate_logo BFILE;
+BEGIN
+corporate_logo := BFILENAME ( 'IMAGES','ourlogo.bmp' );
+END;
+The following statements populate the my_book_files
+table; each row is associated with a file in the
+BOOK_TEXT directory:
+INSERT INTO my_book_files ( file_descr, book_file )
+VALUES ( 'Chapter 1', BFILENAME('BOOK_TEXT','chapter01.txt') );
+UPDATE my_book_files
+SET book_file = BFILENAME( 'BOOK_TEXT','chapter02rev.txt' )
+WHERE file_descr = 'Chapter 2';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ CREATE OR REPLACE PACKAGE p123
+    AS
+PROCEDURE DBMS_OUTPUT.PUT (A VARCHAR2);
+PROCEDURE DBMS_OUTPUT.PUT (A NUMBER);
+PROCEDURE DBMS_OUTPUT.PUT (A DATE);
+
+end p123;
+/
+----
+
+FUNCTION get_next_line RETURN
+VARCHAR2
+IS
+return_value VARCHAR2(255);
+get_status INTEGER;
+BEGIN
+DBMS_OUTPUT.GET_LINE
+(return_value, get_status);
+IF get_status = 0
+THEN
+RETURN return_value;
+ELSE
+RETURN NULL;
+END IF;
+END;
+/
+
+drop table my_book_text;
+create table my_book_text (chapter_descr varchar2(20),
+chapter_text CLOB,chapter_length INTEGER);
+------
+DECLARE
+chapter_loc CLOB;
+chapter_length INTEGER;
+BEGIN
+INSERT INTO my_book_text ( chapter_descr,chapter_text )
+VALUES ( 'Chapter 1', 'It was a dark and stormy night.' );
+
+SELECT chapter_text
+INTO chapter_loc
+FROM my_book_text
+WHERE chapter_descr = 'Chapter 1';
+
+chapter_length := DBMS_LOB.GETLENGTH(chapter_loc);
+DBMS_OUTPUT.PUT_LINE( 'Length of Chapter1 : ' || chapter_length );
+END;
+/
+
+------
+DECLARE
+chapter_loc CLOB;
+chapter_length INTEGER;
+BEGIN
+INSERT INTO my_book_text ( chapter_descr,chapter_text )
+VALUES ( 'Chapter 1', 'It was a dark and stormy night.' )
+RETURNING chapter_text INTO chapter_loc;
+
+chapter_length := DBMS_LOB.GETLENGTH(chapter_loc);
+DBMS_OUTPUT.PUT_LINE( 'Length of Chapter1 : ' || chapter_length );
+END;
+/
+--------
+DECLARE
+chapter_loc CLOB;
+chapter_length INTEGER;
+BEGIN
+UPDATE my_book_text
+SET chapter_text = NULL
+WHERE chapter_descr = 'Chapter 1'
+RETURNING chapter_text INTO chapter_loc;
+chapter_length := DBMS_LOB.GETLENGTH(
+chapter_loc );
+DBMS_OUTPUT.PUT_LINE( 'Length of Chapter 1: ' ||
+chapter_length );
+EXCEPTION
+WHEN OTHERS
+THEN
+DBMS_OUTPUT.PUT_LINE('OTHERS Exception ' ||
+sqlerrm);
+END;
+/

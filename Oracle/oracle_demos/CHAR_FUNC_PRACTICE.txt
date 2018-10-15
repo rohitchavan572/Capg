@@ -1,0 +1,886 @@
+SELECT Upper('Hello'), Lower('WORLD') ,INITCAP('CAPGEMINI INDIA') FROM Dual;
+
+SELECT LENGTH(LTRIM(RTRIM('CAPGEMINI INDIA'))) "LENGTH OF 'CAPGEMINI INDIA'"FROM Dual;
+
+SELECT REPLACE('JACK and JUE','J','BL')
+"Changes" FROM DUAL;
+
+SELECT CONCAT('HELLO','WORLD')
+"CONCAT" FROM DUAL;
+
+SELECT SUBSTR('HELLOWORLD',1,5)
+"SUB STRING" FROM DUAL;
+
+--INSTR('STRING',SUBSTRING,POSITION,OCCURRANCE)
+SELECT instr('I WORK WITH CAPGEMINI INDIA ','I',27,5) FROM dual;
+
+--SUBSTR('STRING',POSITION,SUBSTRING_LENGTH)
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Jan 30 14:47:00 2018
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+SQL> CONN
+Enter user-name: SYSTEM
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> CONN
+Enter user-name: system
+Enter password:
+Connected.
+SQL> select * from emp where ename='SMITA';
+
+no rows selected
+
+SQL> select * from emp where ename='SMITA';
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM
+---------- ---------- --------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7777 SMITA      TR              7902 17-DEC-80        800
+        20
+
+
+SQL>  SELECT ceil(24.567
+  2    2);
+  2)
+  *
+ERROR at line 2:
+ORA-00907: missing right parenthesis
+
+
+SQL> SELECT CEIL(24.1672) FROM DUAL;
+
+CEIL(24.1672)
+-------------
+           25
+
+SQL> SELECT FLOOR(24.9672) FROM DUAL;
+
+FLOOR(24.9672)
+--------------
+            24
+
+SQL> SELECT ROUND(24.9672) FROM DUAL;
+
+ROUND(24.9672)
+--------------
+            25
+
+SQL> SELECT ROUND(24.5672) FROM DUAL;
+
+ROUND(24.5672)
+--------------
+            25
+
+SQL> SELECT ROUND(24.4672) FROM DUAL;
+
+ROUND(24.4672)
+--------------
+            24
+
+SQL> SELECT TRUNC(24.4672,2) FROM DUAL;
+
+TRUNC(24.4672,2)
+----------------
+           24.46
+
+SQL> SELECT TRUNC(24.4672,1) FROM DUAL;
+
+TRUNC(24.4672,1)
+----------------
+            24.4
+
+SQL> SELECT TRUNC(24.49999,1) FROM DUAL;
+
+TRUNC(24.49999,1)
+-----------------
+             24.4
+
+SQL> SELECT CEIL(SAL) FROM EMP;
+
+ CEIL(SAL)
+----------
+       800
+      1600
+      1250
+      2975
+      1250
+      2850
+      2450
+      3000
+      5000
+      1500
+      1100
+
+ CEIL(SAL)
+----------
+       950
+      3000
+      1300
+       800
+       800
+
+16 rows selected.
+
+SQL> SELECT TRUNC(SAL,2) FROM EMP;
+
+TRUNC(SAL,2)
+------------
+         800
+        1600
+        1250
+        2975
+        1250
+        2850
+        2450
+        3000
+        5000
+        1500
+        1100
+
+TRUNC(SAL,2)
+------------
+         950
+        3000
+        1300
+         800
+         800
+
+16 rows selected.
+
+SQL> SELECT TRUNC(STAFF_SAL,2) FROM STAFF_MASTER;
+SELECT TRUNC(STAFF_SAL,2) FROM STAFF_MASTER
+                               *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT TRUNC(STAFF_SAL,2) FROM STAFF_MASTERS;
+
+TRUNC(STAFF_SAL,2)
+------------------
+             17000
+             20000
+             24000
+             20000
+             32000
+             42000
+             62000
+             18000
+             22000
+             32000
+
+10 rows selected.
+
+SQL> SELECT TRUNC(24.49999,1) FROM DUAL;
+
+TRUNC(24.49999,1)
+-----------------
+             24.4
+
+SQL> SELECT round(24.567,-1) FROM dual;
+
+ROUND(24.567,-1)
+----------------
+              20
+
+SQL> SELECT round(24.567,1) FROM dual;
+
+ROUND(24.567,1)
+---------------
+           24.6
+
+SQL> SELECT round(24.567,-2) FROM dual;
+
+ROUND(24.567,-2)
+----------------
+               0
+
+SQL> SELECT round(24.567,+2) FROM dual;
+
+ROUND(24.567,+2)
+----------------
+           24.57
+
+SQL> SELECT round(54.567,-3) FROM dual;
+
+ROUND(54.567,-3)
+----------------
+               0
+
+SQL> SELECT round(54.567,-2) FROM dual;
+
+ROUND(54.567,-2)
+----------------
+             100
+
+SQL> SELECT round(54.567,-1) FROM dual;
+
+ROUND(54.567,-1)
+----------------
+              50
+
+SQL> SELECT round(54.567,-4) FROM dual;
+
+ROUND(54.567,-4)
+----------------
+               0
+
+SQL> SELECT round(54.567,-3) FROM dual;
+
+ROUND(54.567,-3)
+----------------
+               0
+
+SQL> SELECT round(54.56777,-3) FROM dual;
+
+ROUND(54.56777,-3)
+------------------
+                 0
+
+SQL> SELECT round(5554.56777,-3) FROM dual;
+
+ROUND(5554.56777,-3)
+--------------------
+                6000
+
+SQL> SELECT round(5554.56777,-5) FROM dual;
+
+ROUND(5554.56777,-5)
+--------------------
+                   0
+
+SQL> SELECT round(5554.56777,-4) FROM dual;
+
+ROUND(5554.56777,-4)
+--------------------
+               10000
+
+SQL> SELECT round(5554.56777,-2) FROM dual;
+
+ROUND(5554.56777,-2)
+--------------------
+                5600
+
+SQL> SELECT round(5554.56777,-1) FROM dual;
+
+ROUND(5554.56777,-1)
+--------------------
+                5550
+
+SQL> SELECT round(5554.56777,-5) FROM dual;
+
+ROUND(5554.56777,-5)
+--------------------
+                   0
+
+SQL> SELECT round(5554.56777,-4) FROM dual;
+
+ROUND(5554.56777,-4)
+--------------------
+               10000
+
+SQL> SELECT round(5554.56777,-3) FROM dual;
+
+ROUND(5554.56777,-3)
+--------------------
+                6000
+
+SQL> SELECT round(5554.56777,-2) FROM dual;
+
+ROUND(5554.56777,-2)
+--------------------
+                5600
+
+SQL> SELECT round(5554.56777,-1) FROM dual;
+
+ROUND(5554.56777,-1)
+--------------------
+                5550
+
+SQL> SELECT ABS(20) "Absolute" FROM DUAL;
+
+  Absolute
+----------
+        20
+
+SQL> SELECT POWER(3,3) FROM DUAL;
+
+POWER(3,3)
+----------
+        27
+
+SQL> SELECT ABS(20.5) "Absolute" FROM DUAL;
+
+  Absolute
+----------
+      20.5
+
+SQL> SELECT ABS(-20.5) "Absolute" FROM DUAL;
+
+  Absolute
+----------
+      20.5
+
+SQL> SELECT SQRT(16) FROM DUAL;
+
+  SQRT(16)
+----------
+         4
+
+SQL> SELECT SIN(16) FROM DUAL;
+
+   SIN(16)
+----------
+-.28790332
+
+SQL> SELECT COS(16) FROM DUAL;
+
+   COS(16)
+----------
+-.95765948
+
+SQL> SELECT TAN(16) FROM DUAL;
+
+   TAN(16)
+----------
+.300632242
+
+SQL> DESC DUAL;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DUMMY                                              VARCHAR2(1)
+
+SQL> SELECT * FROM DUAL;
+
+D
+-
+X
+
+SQL> SELECT TRUNC(15.81,-1) "Number" FROM dual;
+
+    Number
+----------
+        10
+
+SQL> SELECT TRUNC(25.81,-1) "Number" FROM dual;
+
+    Number
+----------
+        20
+
+SQL> SELECT ROUND(25.81,-1) "Number" FROM dual;
+
+    Number
+----------
+        30
+
+SQL> SELECT ROUND(22.81,-1) "Number" FROM dual;
+
+    Number
+----------
+        20
+
+SQL> SELECT ROUND(52.81,-1) "Number" FROM dual;
+
+    Number
+----------
+        50
+
+SQL> SELECT ROUND(62.81,-1) "Number" FROM dual;
+
+    Number
+----------
+        60
+
+SQL> SELECT ROUND(62.81,-2) "Number" FROM dual;
+
+    Number
+----------
+       100
+
+SQL> SELECT ROUND(66.81,-1) "Number" FROM dual;
+
+    Number
+----------
+        70
+
+SQL> SELECT ROUND(76.81,-2) "Number" FROM dual;
+
+    Number
+----------
+       100
+
+SQL> SELECT ROUND(56.81,-2) "Number" FROM dual;
+
+    Number
+----------
+       100
+
+SQL> SELECT ROUND(46.81,-2) "Number" FROM dual;
+
+    Number
+----------
+         0
+
+SQL> SELECT ROUND(4446.81,-4) "Number" FROM dual;
+
+    Number
+----------
+         0
+
+SQL> SELECT ROUND(4446.81,-3) "Number" FROM dual;
+
+    Number
+----------
+      4000
+
+SQL> SELECT ROUND(4446.81,-2) "Number" FROM dual;
+
+    Number
+----------
+      4400
+
+SQL> SELECT Upper('Hello'), Lower('WORLD') ,INITCAP('CAPGEMINI INDIA') FROM Dual;
+
+UPPER LOWER INITCAP('CAPGEM
+----- ----- ---------------
+HELLO world Capgemini India
+
+SQL>
+SQL> SELECT LENGTH(LTRIM(RTRIM('SMITA KUMAR'))) FROM Dual;
+
+LENGTH(LTRIM(RTRIM('SMITAKUMAR')))
+----------------------------------
+                                11
+
+SQL>
+SQL> SELECT REPLACE('JACK and JUE','J','BL')
+  2  "Changes" FROM DUAL;
+
+Changes
+--------------
+BLACK and BLUE
+
+SQL>
+SQL> SELECT CONCAT('HELLO','WORLD')
+  2  "CONCAT" FROM DUAL;
+
+CONCAT
+----------
+HELLOWORLD
+
+SQL>
+SQL> SELECT SUBSTR('HELLOWORLD',1,5)
+  2  "SUB STRING" FROM DUAL;
+
+SUB S
+-----
+HELLO
+
+SQL> SELECT LENGTH(LTRIM(RTRIM('CAPGEMINI INDIA'))) "LENGTH OF 'CAPGEMINI INDIA'"FROM Dual;
+
+LENGTH OF 'CAPGEMINI INDIA'
+---------------------------
+                         15
+
+SQL> SELECT Upper('Hello'), Lower('WORLD') ,INITCAP('CAPGEMINI INDIA') FROM Dual;
+
+UPPER LOWER INITCAP('CAPGEM
+----- ----- ---------------
+HELLO world Capgemini India
+
+SQL> SELECT LENGTH('  CAPGEMINI INDIA  ') FROM Dual;
+
+LENGTH('CAPGEMINIINDIA')
+------------------------
+                      19
+
+SQL> SELECT LENGTH(' CAPGEMINI INDIA ') FROM Dual;
+
+LENGTH('CAPGEMINIINDIA')
+------------------------
+                      17
+
+SQL> SELECT LENGTH(TRIM(' CAPGEMINI INDIA ')) FROM Dual;
+
+LENGTH(TRIM('CAPGEMINIINDIA'))
+------------------------------
+                            15
+
+SQL> SELECT LENGTH(RTRIM(' CAPGEMINI INDIA ')) FROM Dual;
+
+LENGTH(RTRIM('CAPGEMINIINDIA'))
+-------------------------------
+                             16
+
+SQL> SELECT LENGTH(RTRIM(LTRIM(' CAPGEMINI INDIA '))) FROM Dual;
+
+LENGTH(RTRIM(LTRIM('CAPGEMINIINDIA')))
+--------------------------------------
+                                    15
+
+SQL> SELECT INITCAP(' CAPGEMINI INDIA '))) FROM Dual;
+SELECT INITCAP(' CAPGEMINI INDIA '))) FROM Dual
+                                   *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT INITCAP(' CAPGEMINI INDIA ') FROM Dual;
+
+INITCAP('CAPGEMIN
+-----------------
+ Capgemini India
+
+SQL> SELECT TRIM(INITCAP(' CAPGEMINI INDIA ')) FROM Dual;
+
+TRIM(INITCAP('C
+---------------
+Capgemini India
+
+SQL> SELECT INITCAP(TRIM(' CAPGEMINI INDIA ')) FROM Dual;
+
+INITCAP(TRIM('C
+---------------
+Capgemini India
+
+SQL> SELECT LENGTH(RTRIM(LTRIM(INITCAP(' CAPGEMINI INDIA ')))) FROM Dual;
+
+LENGTH(RTRIM(LTRIM(INITCAP('CAPGEMINIINDIA'))))
+-----------------------------------------------
+                                             15
+
+SQL> SELECT INITCAP(LENGTH(RTRIM(LTRIM(' CAPGEMINI INDIA ')))) FROM Dual;
+
+IN
+--
+15
+
+SQL> SELECT REPLACE('JACK and JUE','J','BL')
+  2  "Changes" FROM DUAL;
+
+Changes
+--------------
+BLACK and BLUE
+
+SQL> SELECT CONCAT('HELLO','WORLD')
+  2  "CONCAT" FROM DUAL;
+
+CONCAT
+----------
+HELLOWORLD
+
+SQL> SELECT CONCAT('HELLO','WORLD')
+  2  "CONCAT" FROM DUAL;
+
+CONCAT
+----------
+HELLOWORLD
+
+SQL> SELECT INSTR('Oracle','a') FROM dual;
+
+INSTR('ORACLE','A')
+-------------------
+                  3
+
+SQL> SELECT INSTR('ARYA','A') FROM dual;
+
+INSTR('ARYA','A')
+-----------------
+                1
+
+SQL> SELECT INSTR('ARYA','A',2) FROM dual;
+
+INSTR('ARYA','A',2)
+-------------------
+                  4
+
+SQL> SELECT INSTR('ARYAMAAN','A',1,4) FROM dual;
+
+INSTR('ARYAMAAN','A',1,4)
+-------------------------
+                        7
+
+SQL> SELECT INSTR('ARYAMAAN','A',1,2) FROM dual;
+
+INSTR('ARYAMAAN','A',1,2)
+-------------------------
+                        4
+
+SQL> SELECT instr('I WORK WITH CAPGEMINI INDIA ','I',27,5) FROM dual;
+
+INSTR('IWORKWITHCAPGEMINIINDIA','I',27,5)
+-----------------------------------------
+                                        0
+
+SQL> SELECT instr('I WORK WITH CAPGEMINI INDIA ','I',1,5) FROM dual;
+
+INSTR('IWORKWITHCAPGEMINIINDIA','I',1,5)
+----------------------------------------
+                                      23
+
+SQL> SELECT SUBSTR('HELLOWORLD',1,5)
+  2  "SUB STRING" FROM DUAL;
+
+SUB S
+-----
+HELLO
+
+SQL> SELECT SUBSTR('HELLOWORLD',1,5)
+  2  SELECT SUBSTR('HELLOWORLD',1,5);
+SELECT SUBSTR('HELLOWORLD',1,5)
+*
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT SUBSTR('HELLOWORLD',0,5)
+  2  FROM DUAL;
+
+SUBST
+-----
+HELLO
+
+SQL> SELECT SUBSTR('HELLOWORLD',3,5) FROM DUAL;
+
+SUBST
+-----
+LLOWO
+
+SQL> SELECT SUBSTR('HELLOWORLD',4,4) FROM DUAL;
+
+SUBS
+----
+LOWO
+
+SQL> SELECT lpad('Oracle',10,'*') FROM dual;
+
+LPAD('ORAC
+----------
+****Oracle
+
+SQL> SELECT RPAD(ENAME,10,*),LPAD(SAL,10,'*') FROM EMP;
+SELECT RPAD(ENAME,10,*),LPAD(SAL,10,'*') FROM EMP
+                     *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> SELECT RPAD(ENAME,10,'*'),LPAD(SAL,10,'*') FROM EMP;
+
+RPAD(ENAME,10,'*')
+----------------------------------------
+LPAD(SAL,10,'*')
+----------------------------------------
+SMITH*****
+*******800
+
+ALLEN*****
+******1600
+
+WARD******
+******1250
+
+
+RPAD(ENAME,10,'*')
+----------------------------------------
+LPAD(SAL,10,'*')
+----------------------------------------
+JONES*****
+******2975
+
+MARTIN****
+******1250
+
+BLAKE*****
+******2850
+
+
+RPAD(ENAME,10,'*')
+----------------------------------------
+LPAD(SAL,10,'*')
+----------------------------------------
+CLARK*****
+******2450
+
+SCOTT*****
+******3000
+
+KING******
+******5000
+
+
+RPAD(ENAME,10,'*')
+----------------------------------------
+LPAD(SAL,10,'*')
+----------------------------------------
+TURNER****
+******1500
+
+ADAMS*****
+******1100
+
+JAMES*****
+*******950
+
+
+RPAD(ENAME,10,'*')
+----------------------------------------
+LPAD(SAL,10,'*')
+----------------------------------------
+FORD******
+******3000
+
+MILLER****
+******1300
+
+SMITH*****
+*******800
+
+
+RPAD(ENAME,10,'*')
+----------------------------------------
+LPAD(SAL,10,'*')
+----------------------------------------
+SMITA*****
+*******800
+
+
+16 rows selected.
+
+SQL> SELECT RPAD(ENAME,10,'*')"ENAME",LPAD(SAL,10,'*')"SAL" FROM EMP;
+
+ENAME
+----------------------------------------
+SAL
+----------------------------------------
+SMITH*****
+*******800
+
+ALLEN*****
+******1600
+
+WARD******
+******1250
+
+
+ENAME
+----------------------------------------
+SAL
+----------------------------------------
+JONES*****
+******2975
+
+MARTIN****
+******1250
+
+BLAKE*****
+******2850
+
+
+ENAME
+----------------------------------------
+SAL
+----------------------------------------
+CLARK*****
+******2450
+
+SCOTT*****
+******3000
+
+KING******
+******5000
+
+
+ENAME
+----------------------------------------
+SAL
+----------------------------------------
+TURNER****
+******1500
+
+ADAMS*****
+******1100
+
+JAMES*****
+*******950
+
+
+ENAME
+----------------------------------------
+SAL
+----------------------------------------
+FORD******
+******3000
+
+MILLER****
+******1300
+
+SMITH*****
+*******800
+
+
+ENAME
+----------------------------------------
+SAL
+----------------------------------------
+SMITA*****
+*******800
+
+
+16 rows selected.
+
+SQL> SELECT RPAD(ENAME,6,'*')"ENAME",LPAD(SAL,6,'*')"SAL" FROM EMP;
+
+ENAME                    SAL
+------------------------ ------------------------
+SMITH*                   ***800
+ALLEN*                   **1600
+WARD**                   **1250
+JONES*                   **2975
+MARTIN                   **1250
+BLAKE*                   **2850
+CLARK*                   **2450
+SCOTT*                   **3000
+KING**                   **5000
+TURNER                   **1500
+ADAMS*                   **1100
+
+ENAME                    SAL
+------------------------ ------------------------
+JAMES*                   ***950
+FORD**                   **3000
+MILLER                   **1300
+SMITH*                   ***800
+SMITA*                   ***800
+
+16 rows selected.
+
+SQL> SELECT 'Oracle '||'for '||'Developers' FROM dual;
+
+'ORACLE'||'FOR'||'DEV
+---------------------
+Oracle for Developers
+
+SQL> SELECT concat(concat('Oracle',' for'),' developers') FROM dual;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

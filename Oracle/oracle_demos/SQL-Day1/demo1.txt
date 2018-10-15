@@ -1,0 +1,307 @@
+
+SQL> set linesize 300
+SQL> column sal format A4
+SQL> SELECT empno,ename FROM employee WHERE sal>3000;
+
+     EMPNO ENAME
+---------- ----------
+      7839 king
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT empno,ename,sal FROM employee WHERE sal>3000
+SQL> /
+
+     EMPNO ENAME             SAL
+---------- ---------- ----------
+      7839 king       ##########
+
+SQL> column sal format A30
+SQL> /
+
+     EMPNO ENAME             SAL
+---------- ---------- ----------
+      7839 king       ##########
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT empno,ename FROM employee WHERE sal>3000
+SQL> /
+
+     EMPNO ENAME
+---------- ----------
+      7839 king
+
+SQL> SELECT empno as Employeenumber, ename "Employee Name" FROM employee
+  2     WHERE sal>3000;
+
+EMPLOYEENUMBER Employee N
+-------------- ----------
+          7839 king
+
+SQL> column "Employee Name" format A30
+SQL> /
+
+EMPLOYEENUMBER Employee Name
+-------------- ------------------------------
+          7839 king
+
+SQL>
+
+SQL> SELECT * from employee1;
+
+EMPLOYEE_CODE EMPLOYEE_NAME        EMPLOYEE_ EMPLOYE_SALARY TI
+------------- -------------------- --------- -------------- --
+          101 Preetham             10-JAN-10          18000 Mr
+          102 Aakash               10-NOV-05           4800 Mr
+          103 Kishore              19-DEC-11          21000 Mr
+          104 Reena                23-JUN-06           4200 Ms
+          105 Kailash              05-FEB-04           4600 Mr
+          106 Sahana               18-NOV-03           5200 Ms
+          107 Keerthana            25-JUL-06           2700 Ms
+
+7 rows selected.
+
+SQL> SELECT employee_name FROM employee1
+  2     WHERE employee_name like '%a';
+
+EMPLOYEE_NAME
+--------------------
+Reena
+Sahana
+Keerthana
+
+SQL> SELECT employee_name FROM employee1
+  2     WHERE employee_name like 'k%';
+
+no rows selected
+
+SQL> SELECT employee_name FROM employee1
+  2     WHERE employee_name like 'K%';
+
+EMPLOYEE_NAME
+--------------------
+Kishore
+Kailash
+Keerthana
+
+SQL> SELECT employee_name FROM employee1
+  2     WHERE employee_name like 'Ree_a';
+
+EMPLOYEE_NAME
+--------------------
+Reena
+
+SQL> SELECT employee_name FROM employee1
+  2     WHERE employee_name like 'Ree\_a' escape '\';
+
+no rows selected
+
+SQL> SELECT job FROM employee;
+
+JOB
+--------------------------------------------------
+president
+manager
+manager
+salesman
+salesman
+manager
+salesman
+analyst
+
+8 rows selected.
+
+SQL> SELECT DISTINCT job FROM employee;
+
+JOB
+--------------------------------------------------
+salesman
+president
+manager
+analyst
+
+SQL> SELECT ename,sal as salary FROM employee;
+
+ENAME          SALARY
+---------- ----------
+king             5100
+blake            2850
+clark            2450
+allen            1600
+ward             1250
+jones            2975
+martin           1250
+scott            3000
+
+8 rows selected.
+
+SQL> SELECT ename,sal as salary FROM employee ORDER BY sal;
+
+ENAME          SALARY
+---------- ----------
+martin           1250
+ward             1250
+allen            1600
+clark            2450
+blake            2850
+jones            2975
+scott            3000
+king             5100
+
+8 rows selected.
+
+SQL> SELECT ename,sal as salary FROM employee ORDER BY sal desc;
+
+ENAME          SALARY
+---------- ----------
+king             5100
+scott            3000
+jones            2975
+blake            2850
+clark            2450
+allen            1600
+martin           1250
+ward             1250
+
+8 rows selected.
+
+SQL> SELECT ename,sal as salary FROM employee ORDER BY 2 desc;
+
+ENAME          SALARY
+---------- ----------
+king             5100
+scott            3000
+jones            2975
+blake            2850
+clark            2450
+allen            1600
+martin           1250
+ward             1250
+
+8 rows selected.
+
+SQL> SELECT floor((sysdate-hiredate)\365) FROM employee ORDER BY 1;
+SELECT floor((sysdate-hiredate)\365) FROM employee ORDER BY 1
+                               *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> SELECT floor((sysdate-hiredate)/365) FROM employee ORDER BY 1;
+
+FLOOR((SYSDATE-HIREDATE)/365)
+-----------------------------
+                           31
+                           32
+                           32
+                           33
+                           33
+                           33
+                           33
+                           33
+
+8 rows selected.
+
+SQL> SELECT employee_name FROM employee1 ORDER BY 1;
+
+EMPLOYEE_NAME
+--------------------
+Aakash
+Kailash
+Keerthana
+Kishore
+Preetham
+Reena
+Sahana
+
+7 rows selected.
+
+SQL> desc employee1;
+ Name
+
+               Null?    Type
+ -------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-------------- -------- --------------------------------------------------------
+------------------------------------------------------------
+ EMPLOYEE_CODE
+
+               NOT NULL NUMBER
+ EMPLOYEE_NAME
+
+                        VARCHAR2(20)
+ EMPLOYEE_DATE_OF_JOINING
+
+                        DATE
+ EMPLOYE_SALARY
+
+                        NUMBER
+ TITLE
+
+                        VARCHAR2(2)
+
+SQL> SELECT ename,sal as salary FROM employee ORDER BY 2 desc;
+
+ENAME          SALARY
+---------- ----------
+king             5100
+scott            3000
+jones            2975
+blake            2850
+clark            2450
+allen            1600
+martin           1250
+ward             1250
+
+8 rows selected.
+
+SQL> SELECT ename,sal as salary FROM employee ORDER BY 2 desc,ename desc;
+
+ENAME          SALARY
+---------- ----------
+king             5100
+scott            3000
+jones            2975
+blake            2850
+clark            2450
+allen            1600
+ward             1250
+martin           1250
+
+8 rows selected.
+
+SQL> SELECT sal+comm FROM employee;
+
+  SAL+COMM
+----------
+      5220
+      2950
+      2552
+      1900
+      1750
+      3175
+      2650
+      3220
+
+8 rows selected.
+
+SQL> SELECT sal||' '|| comm FROM employee;
+
+SAL||''||COMM
+--------------------------------------------------------------------------------
+-
+5100 120
+2850 100
+2450 102
+1600 300
+1250 500
+2975 200
+1250 1400
+3000 220
+
+8 rows selected.
+
+SQL>

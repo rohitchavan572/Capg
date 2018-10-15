@@ -1,0 +1,50 @@
+-----------------To pass and retrieve values,------------------
+DECLARE
+	l_deptname DEPT.DNAME%TYPE:='SAP';
+	l_loc DEPT.LOC%TYPE:='BOSTON';
+BEGIN
+	EXECUTE IMMEDIATE 'INSERT INTO dept values(:1,:2,:3)'
+	using 120,l_deptname,l_loc;
+	COMMIT;
+END;
+/
+-----------------To pass and retrieve values,------------------
+DECLARE
+	l_dept pls_integer := 20;
+	l_nam varchar2(20);
+	l_loc varchar2(20);
+BEGIN
+	execute immediate 'select dname, loc from
+	dept where deptno = :1' into l_nam, l_loc using
+	l_dept ;
+END;
+-----------------------------------
+
+
+DECLARE
+	sql_stmt varchar2(100);
+	plsql_block varchar2(200);
+	my_deptno number(2) := 50;
+	my_dname varchar2(15) := 'PERSONNEL';
+	my_loc varchar2(15) := 'DALLAS';
+	emp_rec emp%ROWTYPE;
+BEGIN
+	sql_stmt := 'INSERT INTO dept VALUES (:1, :2,:3)';
+--The INTO clause should precede the USING clause.
+	EXECUTE IMMEDIATE sql_stmt
+	USING my_deptno, my_dname, my_loc;
+
+--------------------------------------------------------
+
+DECLARE
+	l_routin varchar2(100) := 'gen2161.get_rowcnt';
+	l_tblnam varchar2(20) := 'emp'; l_cnt number;
+	l_status varchar2(200);
+BEGIN EXECUTE IMMEDIATE 
+	'BEGIN ' || l_routin ||'(:2, :3, :4); END;'using in l_tblnam, out l_cnt, in out
+	l_status;
+	IF l_status != 'OK' 
+		THEN 
+			dbms_output.put_line('error');
+	END IF;
+END;

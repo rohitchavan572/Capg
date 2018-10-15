@@ -1,0 +1,186 @@
+DECLARE
+   	SUBTYPE deptD IS dept%ROWTYPE;
+   	v_deptDetail deptD;
+    BEGIN
+    	SELECT * INTO v_deptDetail FROM dept WHERE deptno=20;
+    	DBMS_OUTPUT.PUT_LINE('DEPT NO    :' ||v_deptDetail.deptno);
+    	DBMS_OUTPUT.PUT_LINE('DEPT NAME  :' ||v_deptDetail.dname);
+    	DBMS_OUTPUT.PUT_LINE('LOCATION   :' ||v_deptDetail.loc);
+    END;
+   /
+
+--record
+
+DECLARE
+     TYPE rec_details IS RECORD(
+    	vcEname employee.ename%TYPE,
+    	vcDname dept.dname%TYPE);
+     v_rec rec_details;
+    BEGIN
+    	SELECT ename,dname INTO v_rec FROM employee e,dept d
+    		WHERE d.deptno=e.deptno and empno=7698;
+    	DBMS_OUTPUT.PUT_LINE('EMP NAME  :' || v_rec.vcEname);
+   	DBMS_OUTPUT.PUT_LINE('DEPT NAME :' || v_rec.vcDname);
+  END;
+/
+
+--tABLE
+DECLARE
+     TYPE EmpTable IS TABLE OF emp.empno%type INDEX BY BINARY_INTEGER;
+     v_Emp_tab EmpTable;
+  BEGIN
+      v_Emp_tab(1):=200;
+      v_Emp_tab(2):=300;
+      DBMS_OUTPUT.PUT_LINE(v_Emp_tab(1) || '        '|| v_Emp_tab(2));
+  END;
+   /
+
+
+DECLARE
+     TYPE EmpTable IS TABLE OF emp.empno%type INDEX BY BINARY_INTEGER;
+     v_Emp_tab EmpTable;
+  BEGIN
+      v_Emp_tab(1):=200;
+      v_Emp_tab(2):=300;
+      DBMS_OUTPUT.PUT_LINE(v_Emp_tab(1) || '        '|| v_Emp_tab(2));
+  END;
+   /
+DECLARE
+	type staff_rectype is record (
+		staff_id integer,
+		staff_sname varchar2(60)
+	) ;
+	type staff_table is table of staff_rectype index by binary_integer;
+	v_staff_tab staff_table;
+BEGIN
+	v_staff_tab(1).staff_sname := 'SMITH';
+	DBMS_OUTPUT.PUT_LINE(v_staff_tab(1).staff_sname);
+END;
+/
+
+
+--A
+DECLARE
+     TYPE EmpTable IS TABLE OF emp.empno%type INDEX BY BINARY_INTEGER;
+     v_Emp_tab EmpTable;
+  BEGIN
+      v_Emp_tab(1):=200;
+      v_Emp_tab(2):=300;
+      DBMS_OUTPUT.PUT_LINE(v_Emp_tab(1) || '        '|| v_Emp_tab(2));
+	--Z
+	DECLARE
+    		TYPE StaffTable IS TABLE OF number INDEX BY BINARY_INTEGER;
+     		v_staff_tab StaffTable;
+ 	 BEGIN
+      		v_staff_tab(1):=1001;
+      		v_staff_tab(2):=1002;
+      		DBMS_OUTPUT.PUT_LINE(v_Emp_tab(1) || '        '|| v_Emp_tab(2));
+		--OUTER BLOCK VAR CAN BE ACCESSIBLE IN THE INNER BLOCK
+  	END;
+--ERROR--	DBMS_OUTPUT.PUT_LINE(v_staff_tab(1) || '        '|| v_staff_tab(2));
+		--INNER BLOCK VAR CANNOT BE ACCESSIBLE FROM THE OUTER BLOCK
+  	
+  END;
+/
+
+DECLARE
+	v_dept_code number(10) := 30;
+	v_dname varchar2(15) ;
+BEGIN
+	SELECT dept_name INTO v_dname FROM department_masters 
+	WHERE  dept_code=v_dept_code;
+
+	DBMS_OUTPUT.PUT_LINE('DEPT NAME : '||v_dname);
+
+	DELETE FROM department_masters 
+	WHERE dept_name = v_dname;
+END;
+/
+
+--constructs
+DECLARE
+	D VARCHAR2(3):= TO_CHAR(SYSDATE-1, 'DY');
+BEGIN
+	IF D= 'SAT' 
+	THEN
+		DBMS_OUTPUT.PUT_LINE('ENJOY YOUR WEEKEND');
+	ELSIF D= 'SUN' 
+	THEN
+		DBMS_OUTPUT.PUT_LINE('ENJOY YOUR WEEKEND');
+	ELSE
+		DBMS_OUTPUT.PUT_LINE('HAVE A NICE DAY');
+	END IF;
+END;
+/
+
+
+--loops
+DECLARE
+ctr number := 1;
+BEGIN
+WHILE ctr <= 10
+LOOP
+dbms_output.put_line(ctr);
+ctr := ctr+1;
+END LOOP;
+END;
+/
+
+--labels
+<<OUTER>>
+    DECLARE
+    	nNum NUMBER:=10;
+   BEGIN
+   	DBMS_OUTPUT.PUT_LINE('Outer Block');
+    	DBMS_OUTPUT.PUT_LINE(nNum);
+    	<<INNER>>
+    	DECLARE
+    		nNum NUMBER:=20;
+  	BEGIN
+   	  DBMS_OUTPUT.PUT_LINE('Inner Block');
+   	  DBMS_OUTPUT.PUT_LINE('Inner BlockNnUM : '|| nNum);
+   	  DBMS_OUTPUT.PUT_LINE('Inside Inner Block outer nNUM : '|| OUTER.nNum);
+   	END;
+   	DBMS_OUTPUT.PUT_LINE('Outer Block nNUM : '||nNum);
+   --	DBMS_OUTPUT.PUT_LINE(INNER.nNum);--ERROR , INNER REFERENCE IS OUT OF SCOPE
+   END;
+   /
+
+--implicit cursor
+BEGIN
+    	UPDATE employee SET sal=sal+100;
+   	DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT);
+  END;
+  /
+
+
+--explicit cursor
+DECLARE
+    	CURSOR cName IS SELECT * FROM dept;
+       deptDetail dept%rowtype;
+    BEGIN
+    	OPEN cName; -- Opening a cursor
+    	FETCH cName INTO deptDetail;
+    	CLOSE cName; --Closing cursor
+    	DBMS_OUTPUT.PUT_LINE(deptDetail.dname);
+    END;
+  /
+
+DECLARE
+   	CURSOR cname IS SELECT * FROM dept;
+      deptDetail dept%rowtype;
+    BEGIN
+    	IF cname%ISOPEN
+    	THEN
+    		null;
+    	ELSE
+    		OPEN cname;--open the curser
+   	END IF;
+   	FETCH cname INTO deptDetail;
+   	LOOP
+   		FETCH cname INTO deptDetail;
+   		EXIT WHEN cname%NOTFOUND;
+   		DBMS_OUTPUT.PUT_LINE(deptDetail.dname);
+  	END LOOP;
+   END;
+  /

@@ -1,0 +1,37 @@
+/*
+Row Share: A row share lock held by a transaction allows others to query
+any rows or insert new rows. Also users can update or delete rows other
+than the ones on which lock is being held. As a result two transactions can
+make changes to different rows in the same table at the same time, using
+row share, row exclusive, share update and share row exclusive lock. A
+transaction cannot acquire an exclusive lock on a table if another transaction
+has already acquired the row share lock on that table.
+*/
+
+/*
+
+Share Update: A share update lock is acquired for making changes to data
+in table rows. When a transaction holds this lock, any other transaction can
+acquire any other type of lock on a table except for a exclusive lock. This
+lock is similar in behavior like the Row share lock
+
+*/
+
+LOCK TABLE staff_masters IN SHARE UPDATE MODE NOWAIT;
+
+
+/*
+Row Exclusive: A row-exclusive lock held by a transaction allows other
+transactions to query any rows or insert new rows on the table while the rowexclusive
+lock is being held. In addition, transactions can concurrently
+process update or delete statements on rows other than those held under
+the row-exclusive lock in the same table. Therefore, row-exclusive locks
+allow multiple transactions to obtain simultaneous row-exclusive, share-row,
+or share-update locks for different rows in the same table. However, while
+one transaction holds a row-exclusive lock, no other transaction can make
+changes to rows that the first transaction has changed until the first
+transaction completes. Additionally, no transaction may obtain an exclusive,
+share, or share-row-exclusive lock on a table while another transaction holds
+a row-exclusive lock on that same table.*/
+
+LOCK TABLE student_masters IN EXCLUSIVE MODE;

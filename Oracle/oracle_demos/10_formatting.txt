@@ -1,0 +1,317 @@
+SQL> set linesize 100
+SQL> col username format a30
+
+
+----Formatting Number Values
+ col sal format $999,99,999.99
+
+----- format all numeric values 
+ set numformat "999,99,999.99"
+
+----Format DATES
+alter session set nls_date_format='dd-Mon-yyyy hh:mi:sspm';
+select sysdate from dual;
+alter session set nls_date_format='dd-Mon-yyyy';
+
+-----Changing SQL Prompt in SQL PLus
+set sqlprompt "_user 'ON' _connect_identifier':'_date> "\
+set sqlprompt "SQL>"
+
+---------Splitting a Column Heading
+COLUMN ENAME HEADING 'Employee|Name'
+
+--Now rerun the query with the slash (/) command:
+
+
+---------- Setting the Underline Character----
+SET UNDERLINE =
+---
+
+-----Changing a Column Heading
+-----To produce a report from EMP with new headings specified for DEPTNO, ENAME, and SAL, enter the following commands:
+
+COLUMN DEPTNO HEADING Department
+COLUMN ENAME HEADING Employee
+COLUMN SAL HEADING Salary
+COLUMN COMM HEADING Commission
+SELECT DEPTNO, ENAME, SAL, COMM
+    FROM EMP
+    WHERE JOB = 'SALESMAN';
+
+------------
+COLUMN ENAME FORMAT A4
+
+------Copying a Column's Display Attributes
+COLUMN COMM LIKE SAL HEADING Bonus
+--------Suppressing Duplicate Values in a Break Column
+
+BREAK ON DEPTNO
+ SELECT DEPTNO, ENAME, SAL
+    FROM EMP
+    WHERE SAL < 2500
+   ORDER BY DEPTNO;
+----------Inserting Space when a Break Column's Value Changes
+BREAK ON DEPTNO skip 1
+ SELECT DEPTNO, ENAME, SAL,JOB
+    FROM EMP
+    WHERE SAL < 2500
+   ORDER BY DEPTNO;
+
+-------Combining Spacing Techniques
+--to skip a page when the value of DEPTNO changes 
+--and one line when the value of JOB changes
+BREAK ON DEPTNO SKIP PAGE ON JOB SKIP 1
+
+-------To show that SKIP PAGE has taken effect, create a TTITLE with a page number, enter
+ TTITLE COL 1 FORMAT 9 'Page:' SQL.PNO
+/
+
+------Before continuing, turn off the top title display without changing its definition, using:
+TTITLE OFF
+
+-----You can list your current break definition by entering the BREAK command with no clauses:
+BREAK
+
+------You can remove the current break definition by entering the CLEAR command with the BREAKS clause:
+CLEAR BREAKS
+
+-----Compute Functions
+/*
+Function	Effect
+SUM
+ 	Computes the sum of the values in the column. 
+MINIMUM
+ 	Computes the minimum value in the column. 
+MAXIMUM
+ 	Computes the maximum value in the column. 
+AVG
+ 	Computes the average of the values in the column. 
+STD
+ 	Computes the standard deviation of the values in the column. 
+VARIANCE
+ 	Computes the variance of the values in the column. 
+COUNT
+ 	Computes the number of non-null values in the column. 
+NUMBER
+ 	Computes the number of rows in the column. 
+
+
+*/
+
+------To compute the total of SAL by department, first list the current BREAK definition:
+BREAK
+break on DEPTNO skip 0 page nodup
+           on JOB skip 1 nodup
+
+COMPUTE SUM OF SAL ON DEPTNO
+/
+----
+--------To compute the sum of salaries for departments 10 and 20 without printing the compute label:
+ COLUMN DUMMY NOPRINT
+COMPUTE SUM OF SAL ON DUMMY
+BREAK ON DUMMY SKIP 1
+SELECT DEPTNO DUMMY, DEPTNO, ENAME, SAL
+ FROM EMP
+  WHERE DEPTNO <= 20
+   ORDER BY DEPTNO;
+
+------
+------To compute the salaries at the end of the report:
+ COLUMN DUMMY NOPRINT
+ COMPUTE SUM OF SAL ON DUMMY
+ BREAK ON DUMMY
+ SELECT NULL DUMMY, DEPTNO, ENAME, SAL
+    FROM EMP
+    WHERE DEPTNO <= 20
+    ORDER BY DEPTNO;
+----
+------Computing and Printing a Grand Total
+
+---To calculate and print the grand total of salaries for all salesmen and change the compute label, first enter the following BREAK and COMPUTE commands:
+ BREAK ON REPORT
+ COMPUTE SUM LABEL TOTAL OF SAL ON REPORT
+----Next, enter and run a new query:
+SELECT ENAME, SAL,COMM
+    FROM EMP
+    WHERE JOB = 'SALESMAN';
+
+
+----Computing Multiple Summary Values and Lines
+-To print the total of salaries and commissions for all salesmen, 
+--first enter the following COMPUTE command:
+ COMPUTE SUM OF SAL COMM ON REPORT
+
+/
+
+-----Setting the Top and Bottom Titles and Headers and Footers
+/*
+A TTITLE, BTITLE, REPHEADER or REPFOOTER command consists of the command name followed by one or more clauses specifying a position or format and a CHAR value you wish to place in that position or give that format. 
+*/
+
+----Placing a Top and Bottom Title on a Page
+--To put titles at the top and bottom of each page of a report, enter
+TTITLE CENTER -
+'CAPGEMINI LAB9 SALES DEPARTMENT PERSONNEL REPORT'
+BTITLE CENTER 'COMPANY CONFIDENTIAL @2018'
+
+------
+-----Placing a Header on a Report
+--To put a report header on a separate page, and to center it, enter
+REPHEADER PAGE CENTER 'CG-LAB9 WIDGET'
+
+----To suppress the report header without changing its definition, enter
+REPHEADER OFF
+
+-----To redisplay the personnel report with a repositioned top title, enter the following commands:
+TTITLE CENTER 'C A P  W I D G E T' SKIP 1 -
+ CENTER ================ SKIP 1 LEFT 'PERSONNEL REPORT' -
+  RIGHT 'SALES DEPARTMENT' SKIP 2
+ SET LINESIZE 60
+ /
+
+
+-----To print the company name left-aligned with the report name 
+-indented five spaces on the next line, enter
+ TTITLE LEFT 'CAPGEMINI WIDGET' SKIP 1 -
+  COL 6 'SALES DEPARTMENT PERSONNEL REPORT' SKIP 2
+/
+
+-----Displaying the Page Number and other System-Maintained Values in Titles
+
+---Displaying the Current Page Number in a Title
+---To display the current page number at the top of each page, along with the company name, enter the following command:
+TTITLE LEFT 'CAPGEMINI WIDGET' RIGHT 'PAGE:' SQL.PNO SKIP 2
+/
+
+------To close up the space between the word PAGE: and the page number, reenter the TTITLE command as shown:
+TTITLE LEFT 'CAPGEMINI WIDGET' RIGHT 'PAGE:' FORMAT 999 SQL.PNO SKIP 2
+/
+
+------Listing, Suppressing, and Restoring Page Title Definitions
+--To suppress a title definition, enter:
+TTITLE OFF
+BTITLE OFF
+/*
+These commands cause SQL*Plus to cease displaying titles on reports, but do not clear the current definitions of the titles. 
+You may restore the current definitions by entering:
+*/
+TTITLE ON
+BTITLE ON
+
+----Displaying Column Values in Titles
+
+TTITLE LEFT 'Manager: ' MGR SKIP 2
+BREAK ON MGR SKIP PAGE
+BTITLE OFF
+--Finally, enter and run the following query:
+SELECT MGR, ENAME, SAL, DEPTNO
+  FROM EMP
+   WHERE MGR IN (7698, 7839)
+ORDER BY MGR;
+
+----Displaying the Current Date in Titles
+--To create the variable (in this example named _DATE), you can add the following commands to your SQL*Plus LOGIN file:
+SET TERMOUT OFF
+BREAK ON TODAY
+COLUMN TODAY NEW_VALUE _DATE
+SELECT TO_CHAR(SYSDATE, 'fmMonth DD, YYYY') TODAY
+FROM DUAL;
+CLEAR BREAKS
+SET TERMOUT ON
+
+
+-----Setting Page Dimensions
+
+SET PAGESIZE 66
+SET NEWPAGE 0
+SET LINESIZE 32
+--Now enter and run the following commands to see the results:
+ --To list the current values of these variables, use the SHOW command:
+SHOW PAGESIZE
+	
+SHOW NEWPAGE
+	
+SHOW LINESIZE
+	
+---Storing and Printing Query Results
+
+/*Send your query results to a file when you want to edit them with a word processor before printing or include them in a letter, memo, or other document. 
+To store the results of a query in a file--and still display them on the screen--enter the SPOOL command in the following form:
+	SPOOL file_name
+*/
+---To create a flat file with SQL*Plus, you first must enter the following SET commands:
+SET NEWPAGE 0
+SET SPACE 0
+SET LINESIZE 80
+SET PAGESIZE 0
+SET ECHO OFF
+SET FEEDBACK OFF
+SET HEADING OFF
+SET MARKUP HTML OFF SPOOL OFF
+
+-------------
+define ASSIGNED_ANALYST = &1
+ set FEEDBACK OFF
+ set VERIFY OFF
+ set TERMOUT OFF
+ set ECHO OFF
+ column APPLICATION_NAME format a12 heading
+'Application'
+ column PROGRAM_NAME format a12 heading
+'Program'
+ column PROGRAM_SIZE format 999999 heading
+'Program|Size'
+ break on APPLICATION_NAME skip 2
+ break on report skip 2
+ compute sum of PROGRAM_SIZE onAPPLICATION_NAME
+ compute sum of PROGRAM_SIZE on report
+ttitle 'Programs by Application | Assigned to:&&ASSIGNED_ANALYST'
+ spool ANALYST.OUT
+ select APPLICATION_NAME,PROGRAM_NAME,nvl(PROGRAM_SIZE,0)
+ from APPLICATION_PROGRAMS
+ where ASSIGNED_NAME = '&&ASSIGNED_ANALYST'
+ order by APPLICATION_NAME,PROGRAM_NAME
+ /
+ spool off
+ exit
+
+-----Cross-tabular SQL*Plus report code.
+ define RPT_DATE = &1
+ set FEEDBACK OFF
+ set VERIFY OFF
+ set TERMOUT OFF
+ set ECHO OFF
+ column SALES_REP format a12 heading 'Sales|Person'
+ column NISSAN format 999999 heading 'Nissan'
+ column TOYOTA format 999999 heading 'Toyota'
+ column GM format 999999 heading 'GM'
+ column FORD format 999999 heading 'Ford'
+ column CHRYSLER format 999999 heading 'Chrysler'
+ column TOTALS format 999999 heading 'Totals'
+ break on report skip 2
+ compute sum of NISSAN on report
+ compute sum of TOYOTA on report
+ compute sum of GM on report
+ compute sum of FORD on report
+ compute sum of CHRYSLER on report
+ compute sum of TOTALS on report
+ ttitle left '&&IN_DATE' center 'Auto Sales' RIGHT 'Page: '
+format 999 - SQL.PNO skip CENTER ' by Sales Person '
+ spool SALES.OUT
+
+ select SALES_REP,
+ sum(decode(CAR_TYPE,'N',TOTAL_SALES,0))
+NISSAN,
+ sum(decode(CAR_TYPE,'T',TOTAL_SALES,0))
+TOYOTA,
+ sum(decode(CAR_TYPE,'G',TOTAL_SALES,0)) GM,
+ sum(decode(CAR_TYPE,'F',TOTAL_SALES,0)) FORD,
+ sum(decode(CAR_TYPE,'C',TOTAL_SALES,0))
+CHRYSLER ,
+ sum(TOTAL_SALES) TOTALS
+ from CAR_SALES
+ where SALES_DATE <= to_date('&&RPT_DATE')
+ group by SALES_REP;
+ /
+ spool off
+ exit

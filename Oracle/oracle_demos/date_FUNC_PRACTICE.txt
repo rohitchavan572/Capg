@@ -1,0 +1,37 @@
+SELECT sysdate FROM dual;
+
+SELECT current_date FROM dual;
+
+SELECT sysdate+365 FROM dual;
+
+SELECT ADD_MONTHS(sysdate,1) FROM dual;
+
+SELECT MONTHS_BETWEEN(sysdate,'20-MAY-2017') FROM dual;
+
+SELECT trunc(MONTHS_BETWEEN(sysdate,'20-MAY-2017'),1) FROM dual;
+
+ SELECT LAST_DAY(sysdate) FROM dual;
+
+
+--NEXT_DAY(date1, char) Returns the date of the first weekday
+--specified as char that is later the given date
+--1 IS sunday
+SELECT NEXT_DAY(sysdate,'TUESDAY') FROM dual;--return next tuesday from today
+SELECT NEXT_DAY(sysdate,'4') FROM dual;--return next wednesday from today
+
+
+
+
+SELECT staff_name, TRUNC(sysdate) - TRUNC(HIREDATE)
+as "working days" 
+FROM staff_masters;
+
+
+SELECT staff_name, TRUNC((sysdate - HIREDATE)/365,1)
+as "Experience Years" 
+FROM staff_masters;
+
+
+
+
+

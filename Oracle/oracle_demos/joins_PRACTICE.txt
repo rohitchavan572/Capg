@@ -1,0 +1,18 @@
+SELECT EMP.ENAME, DEPT.DNAME,EMP.DEPTNO FROM EMP,DEPT
+WHERE EMP.DEPTNO=DEPT.DEPTNO;
+
+
+SELECT e1.ENAME, d1.DNAME,e1.DEPTNO FROM EMP e1,DEPT d1
+WHERE e1.DEPTNO=d1.DEPTNO;
+
+SELECT ENAME, DNAME,EMP.DEPTNO FROM EMP,DEPT
+WHERE EMP.DEPTNO=DEPT.DEPTNO;
+
+
+  SELECT  s.staff_name,s.staff_sal,sl.grade
+       FROM staff_masters s,salgrade sl
+      WHERE staff_sal BETWEEN 10000 and 40000;
+
+
+SELECT ename,dname FROM emp e,dept d
+  	WHERE e.deptno=d.deptno(+);

@@ -1,0 +1,41 @@
+SELECT NVL(mgr,0) FROM emp;
+
+SELECT NVL2(mgr,1,0) FROM emp;
+
+SELECT NULLIF(deptno,10) FROM emp;
+
+SELECT NVL(NULLIF(deptno,10),0) FROM emp;
+
+SELECT  ename,
+ 	DECODE (deptno, 10, 'Accounting',
+ 			20, 'Research',
+ 			30, 'Sales',
+ 			    'Unknown') AS department
+	FROM   emp;
+
+SELECT  ename,
+    	CASE deptno
+    		WHEN 10 THEN 'Accounting'
+    		WHEN 20 THEN 'Research'
+    		WHEN 30 THEN 'Sales'
+    		ELSE         'Unknown'
+    	END 
+	AS department
+    FROM emp;
+
+SELECT  ename,
+    	CASE deptno
+    		WHEN 10 THEN 'Accounting'
+    		WHEN 20 THEN 'Research'
+    		ELSE         'Unknown'
+    	END 
+	AS department
+    FROM emp;
+
+ SELECT sal, CASE
+    		WHEN sal < 2000 THEN 'category 1'
+    		WHEN sal < 3000 THEN 'category 2'
+    		WHEN sal < 4000 THEN 'category 3'
+    		ELSE 'category 4'
+    	    end
+    FROM emp;

@@ -1,0 +1,120 @@
+ CREATE PROCEDURE proc_demo1
+    AS
+    BEGIN
+    	DBMS_OUTPUT.PUT_LINE('Hello proc');
+    END proc_demo1;
+    /
+
+execute proc_demo1;
+
+
+CREATE OR REPLACE PROCEDURE PROC2
+	 (N1 IN NUMBER, N2 IN NUMBER, TOTAL OUT NUMBER) IS
+ BEGIN
+ 	TOTAL := N1 + N2;
+ END PROC2;
+ /
+
+VARIABLE SUM NUMBER;
+EXECUTE PROC2(10,20,:SUM);
+PRINT SUM;
+
+
+--OR CREATE ANONYMOUS BLOCK
+DECLARE
+	n1 number:=&N1;
+	n2 number:=&N2;
+	sum number;
+BEGIN
+	sum:=PROC2(n1,n2);
+	dbms_output.put_line(sum);
+END;
+/
+
+
+
+
+CREATE OR REPLACE PROCEDURE split_name
+(
+myname IN VARCHAR2(50), first OUT VARCHAR2(25), last OUT VARCHAR2(25)
+)
+IS
+first := SUBSTR(myname , 1, INSTR(myname,' ')-1);
+last := SUBSTR(myname , INSTR(myname,' ')+1);
+IF first = 'John' THEN
+DBMS_OUTPUT.PUT_LINE('That is a common first name.');
+END IF;
+END;
+/
+
+
+
+
+
+
+
+
+
+
+
+CREATE OR REPLACE PROCEDURE staff_name_proc
+    AS
+	v_staff_code staff_masters.staff_code%TYPE;
+	v_staff_name staff_masters.staff_name%TYPE;
+	staff_not_found EXCEPTION;
+    BEGIN
+	v_staff_code :=&staff_code;
+	SELECT STAFF_NAME INTO v_staff_name FROM STAFF_MASTERS 
+		WHERE STAFF_CODE=v_staff_code;
+	IF v_staff_name IS NOT NULL
+		THEN 
+		UPDATE STAFF_MASTERS SET STAFF_NAME=UPPER(v_staff_name);
+	ELSE
+		RAISE staff_not_found;
+	END IF;
+      EXCEPTION WHEN  staff_not_found
+		THEN 
+		   DBMS_OUTPUT.PUT_LINE('STAFF CODE DOES NOT EXISTS!');	
+ END staff_name_proc;
+/
+
+CREATE OR REPLACE PROCEDURE staff_name_proc(
+	v_staff_code IN staff_masters.staff_code%TYPE)
+    AS	
+	v_staff_name staff_masters.staff_name%TYPE;
+	staff_not_found EXCEPTION;
+    BEGIN	
+	SELECT STAFF_NAME INTO v_staff_name FROM STAFF_MASTERS 
+		WHERE STAFF_CODE=v_staff_code;
+	IF v_staff_name IS NOT NULL
+		THEN 
+		UPDATE STAFF_MASTERS SET STAFF_NAME=UPPER(v_staff_name);
+	ELSE
+		RAISE staff_not_found;
+	END IF;
+      EXCEPTION WHEN  staff_not_found
+		THEN 
+		   DBMS_OUTPUT.PUT_LINE('STAFF CODE DOES NOT EXISTS!');	
+ END staff_name_proc;
+/
+
+VARIABLE vs NUMBER;
+execute staff_name_proc(&vs);
+
+
+
+---OR
+DECLARE
+	vs NUMBER;
+BEGIN
+	staff_name_proc(&vs);
+END;
+/
+
+
+
+
+
+
+
+

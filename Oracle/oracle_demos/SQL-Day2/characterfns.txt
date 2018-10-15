@@ -1,0 +1,108 @@
+SQL> SELECT lower('Oracle') FROM dual;
+
+LOWER(                                                                          
+------                                                                          
+oracle                                                                          
+
+SQL> SELECT upper('Oracle') FROM dual;
+
+UPPER(                                                                          
+------                                                                          
+ORACLE                                                                          
+
+SQL> SELECT instr('Oracle','a') FROM dual;
+
+INSTR('ORACLE','A')                                                             
+-------------------                                                             
+                  3                                                             
+
+SQL> SELECT concat('Oracle','for') FROM dual;
+
+CONCAT('O                                                                       
+---------                                                                       
+Oraclefor                                                                       
+
+SQL> SELECT concat(concat('Oracle',' for'),' developers') FROM dual;
+
+CONCAT(CONCAT('ORACLE                                                           
+---------------------                                                           
+Oracle for developers                                                           
+
+SQL> SELECT 'Oracle '||'for '||'Developers' FROM dual;
+
+'ORACLE'||'FOR'||'DEV                                                           
+---------------------                                                           
+Oracle for Developers                                                           
+
+SQL> SELECT substr('Oracle',2) FROM dual;
+
+SUBST                                                                           
+-----                                                                           
+racle                                                                           
+
+SQL> SELECT substr('Oracle',2,2) FROM dual;
+
+SU                                                                              
+--                                                                              
+ra                                                                              
+
+SQL> SELECT length('Oracle for Developers') FROM dual;
+
+LENGTH('ORACLEFORDEVELOPERS')                                                   
+-----------------------------                                                   
+                           21                                                   
+
+SQL> SELECT ltrim('    Oracle for Developers') FROM dual;
+
+LTRIM('ORACLEFORDEVEL                                                           
+---------------------                                                           
+Oracle for Developers                                                           
+
+SQL> SELECT rtrim('    Oracle for Developers         ') FROM dual;
+
+RTRIM('ORACLEFORDEVELOPER                                                       
+-------------------------                                                       
+    Oracle for Developers                                                       
+
+SQL> SELECT lpad('Oracle',10,'*') FROM dual;
+
+LPAD('ORAC                                                                      
+----------                                                                      
+****Oracle                                                                      
+
+SQL> SELECT rpad('Oracle',10,'*') FROM dual;
+
+RPAD('ORAC                                                                      
+----------                                                                      
+Oracle****                                                                      
+
+SQL> SELECT rpad(ename,15,'*') FROM employee;
+
+RPAD(ENAME,15,'                                                                 
+---------------                                                                 
+king***********                                                                 
+blake**********                                                                 
+clark**********                                                                 
+allen**********                                                                 
+ward***********                                                                 
+jones**********                                                                 
+martin*********                                                                 
+scott**********                                                                 
+
+8 rows selected.
+
+SQL> SELECT lpad('*',ename,'*') FROM employee;
+SELECT lpad('*',ename,'*') FROM employee
+                *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT replace(ename,length(ename),lpad('*',ename,'*')) FROM employee;
+SELECT replace(ename,length(ename),lpad('*',ename,'*')) FROM employee
+                                            *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> spool off

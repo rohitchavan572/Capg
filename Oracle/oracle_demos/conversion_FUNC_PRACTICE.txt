@@ -1,0 +1,25 @@
+
+SELECT TO_CHAR(2560,'$9,999.0') FROM dual;
+
+SELECT ENAME,TO_CHAR(SAL,'$9,999.0') FROM EMP;
+
+
+SELECT TO_CHAR(TRUNC(sysdate), 'ddthfm Month yy') "DATE" FROM dual;
+
+SELECT TO_CHAR(TRUNC(sysdate), 'ddthfm Mon yy') "DATE" from dual;
+
+SELECT TO_CHAR(TRUNC(sysdate), 'Day') "DATE" from dual;
+
+SELECT TO_CHAR(TRUNC(sysdate), 'Dy') "DATE" from dual;
+
+SELECT TO_CHAR(TRUNC(sysdate), 'D') "DATE" from dual;
+
+SELECT TO_CHAR(TRUNC(sysdate), 'Dd') "DATE" from dual;
+
+SELECT to_char ( sysdate , 'Q') FROM dual ;
+
+SELECT ENAME,HIREDATE FROM EMP WHERE HIREDATE=TO_DATE('December 03,1981', 'Month DD,YYYY');
+
+SELECT ENAME,HIREDATE FROM EMP WHERE HIREDATE=TO_DATE('12-03-1981', 'MM-DD-YYYY');
+
+SELECT TO_TIMESTAMP(sysdate, 'MM-DD-YYYY') "DATE" from dual;

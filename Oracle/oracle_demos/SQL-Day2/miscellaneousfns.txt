@@ -1,0 +1,125 @@
+SQL> SELECT mgr FROM employee;
+
+       MGR                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                                            
+      7839                                                                                                                                                                                                                                                                                                  
+      7839                                                                                                                                                                                                                                                                                                  
+      7698                                                                                                                                                                                                                                                                                                  
+      7698                                                                                                                                                                                                                                                                                                  
+      7839                                                                                                                                                                                                                                                                                                  
+      7698                                                                                                                                                                                                                                                                                                  
+      7566                                                                                                                                                                                                                                                                                                  
+
+8 rows selected.
+
+SQL> SELECT nvl(mgr,0) FROM employee;
+
+NVL(MGR,0)                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         0                                                                                                                                                                                                                                                                                                  
+      7839                                                                                                                                                                                                                                                                                                  
+      7839                                                                                                                                                                                                                                                                                                  
+      7698                                                                                                                                                                                                                                                                                                  
+      7698                                                                                                                                                                                                                                                                                                  
+      7839                                                                                                                                                                                                                                                                                                  
+      7698                                                                                                                                                                                                                                                                                                  
+      7566                                                                                                                                                                                                                                                                                                  
+
+8 rows selected.
+
+SQL> SELECT NVL2(mgr,0,1) FROM employee;
+
+NVL2(MGR,0,1)                                                                                                                                                                                                                                                                                               
+-------------                                                                                                                                                                                                                                                                                               
+            1                                                                                                                                                                                                                                                                                               
+            0                                                                                                                                                                                                                                                                                               
+            0                                                                                                                                                                                                                                                                                               
+            0                                                                                                                                                                                                                                                                                               
+            0                                                                                                                                                                                                                                                                                               
+            0                                                                                                                                                                                                                                                                                               
+            0                                                                                                                                                                                                                                                                                               
+            0                                                                                                                                                                                                                                                                                               
+
+8 rows selected.
+
+SQL> SELECT NULLIF(deptno,10) FROM employee;
+
+NULLIF(DEPTNO,10)                                                                                                                                                                                                                                                                                           
+-----------------                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+               30                                                                                                                                                                                                                                                                                           
+               30                                                                                                                                                                                                                                                                                           
+               20                                                                                                                                                                                                                                                                                           
+               30                                                                                                                                                                                                                                                                                           
+               20                                                                                                                                                                                                                                                                                           
+
+8 rows selected.
+
+SQL> SELECT  ename,
+  2  	DECODE (deptno, 10, 'Accounting',
+  3  			20, 'Research',
+  4  			30, 'Sales',
+  5  			    'Unknown') AS department
+  6  	FROM   employee;
+
+ENAME      DEPARTMENT                                                                                                                                                                                                                                                                                       
+---------- ----------                                                                                                                                                                                                                                                                                       
+king       Accounting                                                                                                                                                                                                                                                                                       
+blake      Accounting                                                                                                                                                                                                                                                                                       
+clark      Accounting                                                                                                                                                                                                                                                                                       
+allen      Sales                                                                                                                                                                                                                                                                                            
+ward       Sales                                                                                                                                                                                                                                                                                            
+jones      Research                                                                                                                                                                                                                                                                                         
+martin     Sales                                                                                                                                                                                                                                                                                            
+scott      Research                                                                                                                                                                                                                                                                                         
+
+8 rows selected.
+
+SQL> SELECT  ename,
+  2  	CASE deptno
+  3  		WHEN 10 THEN 'Accounting'
+  4  		WHEN 20 THEN 'Research'
+  5  		WHEN 30 THEN 'Sales'
+  6  		ELSE         'Unknown'
+  7  	END AS department
+  8  FROM employee;
+
+ENAME      DEPARTMENT                                                                                                                                                                                                                                                                                       
+---------- ----------                                                                                                                                                                                                                                                                                       
+king       Accounting                                                                                                                                                                                                                                                                                       
+blake      Accounting                                                                                                                                                                                                                                                                                       
+clark      Accounting                                                                                                                                                                                                                                                                                       
+allen      Sales                                                                                                                                                                                                                                                                                            
+ward       Sales                                                                                                                                                                                                                                                                                            
+jones      Research                                                                                                                                                                                                                                                                                         
+martin     Sales                                                                                                                                                                                                                                                                                            
+scott      Research                                                                                                                                                                                                                                                                                         
+
+8 rows selected.
+
+SQL> 
+SQL> SELECT sal, CASE
+  2  		WHEN sal < 2000 THEN 'category 1'
+  3  		WHEN sal < 3000 THEN 'category 2'
+  4  		WHEN sal < 4000 THEN 'category 3'
+  5  		ELSE 'category 4'
+  6  	    end
+  7  FROM employee;
+
+       SAL CASEWHENSA                                                                                                                                                                                                                                                                                       
+---------- ----------                                                                                                                                                                                                                                                                                       
+      5100 category 4                                                                                                                                                                                                                                                                                       
+      2850 category 2                                                                                                                                                                                                                                                                                       
+      2450 category 2                                                                                                                                                                                                                                                                                       
+      1600 category 1                                                                                                                                                                                                                                                                                       
+      1250 category 1                                                                                                                                                                                                                                                                                       
+      2975 category 2                                                                                                                                                                                                                                                                                       
+      1250 category 1                                                                                                                                                                                                                                                                                       
+      3000 category 3                                                                                                                                                                                                                                                                                       
+
+8 rows selected.
+
+SQL> spool off

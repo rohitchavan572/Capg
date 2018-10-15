@@ -1,0 +1,131 @@
+SQL> SELECT ename,lpad('*',length(ename),'*') as e FROM employee;
+
+ENAME      E
+---------- ------------------------------
+king       ****
+blake      *****
+clark      *****
+allen      *****
+ward       ****
+jones      *****
+martin     ******
+scott      *****
+
+8 rows selected.
+
+SQL> SELECT sysdate FROM dual
+  2  ;
+
+SYSDATE
+---------
+20-AUG-14
+
+SQL> SELECT current_date FROM dual;
+
+CURRENT_D
+---------
+20-AUG-14
+
+SQL> SELECT sysdate+7 FROM dual;
+
+SYSDATE+7
+---------
+27-AUG-14
+
+SQL> SELECT sysdate-7 FROM dual;
+
+SYSDATE-7
+---------
+13-AUG-14
+
+SQL> SELECT ADD_MONTHS(sysdate,3) FROM dual;
+
+ADD_MONTH
+---------
+20-NOV-14
+
+SQL> SELECT MONTHS_BETWEEN(sysdate,'20-MAY-2014') FROM dual;
+
+MONTHS_BETWEEN(SYSDATE,'20-MAY-2014')
+-------------------------------------
+                                    3
+
+SQL> SELECT LAST_DAY(sysdate) FROM dual;
+
+LAST_DAY(
+---------
+31-AUG-14
+
+SQL> SELECT NEXT_DAY(sysdate) FROM dual;
+SELECT NEXT_DAY(sysdate) FROM dual
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments
+
+
+SQL> SELECT NEXT_DAY(sysdate,3) FROM dual;
+
+NEXT_DAY(
+---------
+26-AUG-14
+
+SQL> SELECT NEXT_DAY(sysdate,8) FROM dual;
+SELECT NEXT_DAY(sysdate,8) FROM dual
+                        *
+ERROR at line 1:
+ORA-01846: not a valid day of the week
+
+
+SQL> SELECT NEXT_DAY(sysdate,1) FROM dual;
+
+NEXT_DAY(
+---------
+24-AUG-14
+
+SQL> SELECT NEXT_DAY(sysdate,2) FROM dual;
+
+NEXT_DAY(
+---------
+25-AUG-14
+
+SQL> SELECT NEXT_DAY(sysdate,7) FROM dual;
+
+NEXT_DAY(
+---------
+23-AUG-14
+
+SQL> SELECT NEXT_DAY(sysdate,'friday') FROM dual;
+
+NEXT_DAY(
+---------
+22-AUG-14
+
+SQL> SELECT NEXT_DAY(sysdate,'wednesday') FROM dual;
+
+NEXT_DAY(
+---------
+27-AUG-14
+
+SQL> SELECT NEXT_DAY(sysdate+30,'wednesday') FROM dual;
+
+NEXT_DAY(
+---------
+24-SEP-14
+
+SQL> SELECT EXTRACT(year FROM sysdate) FROM dual;
+
+EXTRACT(YEARFROMSYSDATE)
+------------------------
+                    2014
+
+SQL> SELECT EXTRACT(month FROM sysdate) FROM dual;
+
+EXTRACT(MONTHFROMSYSDATE)
+-------------------------
+                        8
+
+SQL> SELECT EXTRACT(day FROM sysdate) FROM dual;
+
+EXTRACT(DAYFROMSYSDATE)
+-----------------------
+                     20
