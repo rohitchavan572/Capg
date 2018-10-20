@@ -1,0 +1,15 @@
+declare
+     v_deptcode number:=&dept_code;
+     v_sal number;
+     maximum number;
+     CURSOR s_staff(v_deptcode number) is select max(staff_sal) from staff_masters having dept_code =v_deptcode group by dept_code;
+   begin
+      open s_staff(v_deptcode);
+      loop
+        fetch s_staff into maximum;
+       EXIT WHEN s_staff%notfound;
+       dbms_output.put_line('Maximum salary of department '||v_deptcode||' is '||maximum);
+       end loop;
+       close s_staff;
+  end;
+/

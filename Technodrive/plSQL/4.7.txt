@@ -1,0 +1,21 @@
+create or replace procedure updater(v_staffcode IN number)
+as
+v_hiredate date;
+v_exp number;
+v_sal number;
+begin
+	insert into staff_masters_back select * from staff_masters where 		staff_code=v_staffcode;
+	select hiredate,staff_sal into v_hiredate,v_sal from staff_masters where 
+	staff_code=v_staffcode;
+	v_exp := round(months_between(sysdate,v_hiredate)/12);
+		if v_exp <2 then
+			v_sal:=v_sal;
+		elsif v_exp >2 and v_sal< 5 then
+			v_sal:=v_sal*1.20;
+		else
+			v_sal:=v_sal*1.25; 
+		end if;	
+		update staff_masters 
+			set staff_sal=v_sal where staff_code =v_staffcode;
+end updater;
+/

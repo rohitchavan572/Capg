@@ -1,0 +1,45 @@
+declare
+v_staffcode number :=&staff_code;
+v_staffsal number;
+result number;
+result1 number;
+experience number;
+v_hiredate date;
+CURSOR s_staff is select staff_sal,hiredate from staff_masters where staff_code = v_staffcode;
+function ctoc(v_staffsal number)
+return number is 
+salary number;
+begin
+	salary:=v_staffsal * 1.43;
+	return salary;
+end;
+function expcalc(v_hiredate date)
+return number is
+experience number;
+begin
+	experience:=1;
+	experience:=round(months_between(sysdate,v_hiredate)/12);
+	return experience;
+end;
+begin
+	open s_staff;
+	loop
+		fetch s_staff into v_staffsal,v_hiredate;
+		EXIT WHEN s_staff%notfound;
+		result := ctoc(v_staffsal);
+		experience := expcalc(v_hiredate);
+		case 
+			when experience < 1 then 
+				result1:=result;
+			when experience >=1 and experience<2 then
+				result1:=result * 1.1;
+			when experience >=2 and experience<4 then
+				result1:=result * 1.2;
+			else
+				result1:=result * 1.3;
+		end case;
+		dbms_output.put_line(v_staffcode||'	'||result||'	'||experience||'	'||result1);
+	end loop;
+	close s_staff;
+end;
+/

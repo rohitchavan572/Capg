@@ -1,0 +1,16 @@
+declare
+  v_code number;
+  v_deptcode number:=&dept_code;
+  v_name varchar2(50);
+  v_sal number;
+  CURSOR s_staff is select staff_code,staff_name,staff_sal into v_code,v_name,v_sal from staff_masters where dept_code=v_deptcode;
+begin
+   open s_staff;
+   loop
+     fetch s_staff into v_code,v_name,v_sal;
+     EXIT WHEN s_staff%notfound;
+     dbms_output.put_line(v_code||' '||v_name||' '||v_sal);
+   end loop;
+   close s_staff;
+end;
+/

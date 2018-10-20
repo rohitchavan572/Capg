@@ -1,0 +1,18 @@
+create or replace procedure uppercase(v_staffcode IN number)
+as
+v_staffname varchar2(50);
+myexception exception;
+begin
+select staff_name into v_staffname from staff_masters where staff_code = v_staffcode;
+dbms_output.put_line(v_staffname);
+if v_staffname is null then
+raise myexception;
+end if;
+update staff_masters set staff_name=upper(v_staffname) where staff_code=v_staffcode;
+select staff_name into v_staffname from staff_masters where staff_code=v_staffcode;
+dbms_output.put_line(v_staffname);
+EXCEPTION 
+when myexception then
+dbms_output.put_line('No data found');
+end uppercase;
+/

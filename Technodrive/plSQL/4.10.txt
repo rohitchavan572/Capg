@@ -1,0 +1,19 @@
+create or replace procedure bookupdater(v_bookcode number,v_issuedate date,v_choice number,v_scode number)
+  as
+  day number;
+v_returndate date:=v_issuedate;
+  begin
+     select to_char(v_returndate,'d') into day from dual;
+     if day = 7 then
+     v_returndate:=sysdate +12;
+     elsif day =1 then
+     v_returndate:=sysdate +11;
+     end if;
+	dbms_output.put_line('expected date'||v_returndate);
+	if v_choice = 1 then
+		insert into book_transactions values    				(v_bookcode,v_scode,NULL,v_issuedate,v_returndate,sysdate);
+	elsif v_choice =2 then
+		insert into book_transactions values    						(v_bookcode,NULL,v_scode,v_issuedate,v_returndate,sysdate);
+	end if;
+end bookupdater;
+/

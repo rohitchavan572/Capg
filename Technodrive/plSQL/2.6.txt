@@ -1,0 +1,21 @@
+declare
+  v_staffcode number;
+  v_staffname varchar2(50);
+  v_designcode number;
+  v_deptcode number:=&deptcode;
+  v_staffdob date;
+  v_hiredate date;
+  v_mgrcode number;
+  v_staffsal number(10,2);
+  v_staffaddress varchar2(50);
+  CURSOR s_staff is select staff_code,staff_name,design_code,staff_dob,hiredate,mgr_code,staff_sal,staff_address from staff_masters where dept_code=v_deptcode;
+begin
+   open s_staff;
+   loop
+     fetch s_staff into v_staffcode,v_staffname,v_designcode,v_staffdob,v_hiredate,v_mgrcode,v_staffsal,v_staffaddress;
+     EXIT WHEN s_staff%notfound;
+        dbms_output.put_line(v_staffcode||' '||v_staffname||' '||v_designcode||' '||v_staffdob||'  '||v_hiredate||' '||v_mgrcode||' '||v_staffsal||' '||v_staffaddress);
+end loop;
+   close s_staff;
+end;
+/

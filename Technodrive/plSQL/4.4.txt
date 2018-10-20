@@ -1,0 +1,20 @@
+create or replace procedure manager
+AS
+v_staffname varchar2(50);
+v_staffcode number;
+v_deptcode number;
+v_mgrcode number;
+v_mgrname varchar2(50);
+CURSOR s_staff is select a.staff_code,a.staff_name,a.dept_code,b.mgr_code,b.staff_name mgr_name
+ from staff_masters a,staff_masters b
+  where a.mgr_code = b.staff_code;
+begin
+open s_staff;
+loop
+fetch s_staff into v_staffcode,v_staffname,v_deptcode,v_mgrcode,v_mgrname;
+EXIT when s_staff%notfound;
+dbms_output.put_line(v_staffcode||'	'||v_staffname||'	'||v_deptcode||'	'||v_mgrcode||'	'||v_mgrname);
+end loop;
+close s_staff;
+end manager;
+/

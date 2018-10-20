@@ -1,0 +1,23 @@
+declare
+dob date;
+r_dob number;
+CURSOR s_staff is select staff_dob from staff_masters;
+function calc(dob date)
+return number is
+result number;
+begin
+    result:=0;
+    result:=round(months_between(sysdate,dob)/12);
+    return result;
+end;
+begin
+   open s_staff;
+   loop
+     fetch s_staff into dob;
+     EXIT WHEN s_staff%notfound;
+     r_dob:=calc(dob);
+     dbms_output.put_line(r_dob);
+   end loop;
+   close s_staff;
+end;
+/

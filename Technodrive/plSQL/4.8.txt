@@ -1,0 +1,20 @@
+create or replace procedure bookfinder(v_bookcode IN number)
+as
+v_returndate date;
+v_studentcode number;
+v_sname varchar2(50);
+v_scode number;
+v_staffcode number;
+begin
+	select student_code,staff_code into v_studentcode,v_staffcode from 
+		book_transactions where book_code=v_bookcode and 		book_actual_return_date is null;
+	if v_studentcode is not null then
+		select student_code,student_name into 		
+		v_scode,v_sname from book_transactions natural join 							student_masters where book_code=v_bookcode;
+	elsif v_staffcode is not null then
+		select staff_code,staff_name into 		
+		v_scode,v_sname from book_transactions natural join 							staff_masters where book_code=v_bookcode;
+	end if;	
+	dbms_output.put_line(v_bookcode||'	'||v_scode||'	'||v_sname);
+end bookfinder;
+/

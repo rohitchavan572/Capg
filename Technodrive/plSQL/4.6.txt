@@ -1,0 +1,40 @@
+create or replace procedure info
+as
+v_staffname varchar2(50);
+v_dept_name varchar2(50);
+v_designname varchar2(50);
+v_staffsal number;
+avg_sal number;
+v_deptcode number;
+status varchar2(10);
+
+CURSOR s_check is select round(avg(staff_sal)),dept_code into avg_sal,v_deptcode from staff_masters group by dept_code;
+CURSOR s_code is select staff_name,dept_name,design_name,staff_sal
+	from staff_masters natural join department_masters
+	natural join designation_masters where dept_code =v_deptcode;
+begin
+select round(avg(staff_sal)) into avg_sal from staff_masters;
+open s_check;
+	loop
+	fetch s_check into avg_sal,v_deptcode;
+	EXIT WHEN s_check%notfound; 
+	open s_code;
+		loop
+		fetch s_code into v_staffname,v_dept_name,v_designname,v_staffsal;
+		EXIT when s_code%notfound;
+			case 
+				when v_staffsal = avg_sal then
+					status :='Equal';
+				when v_staffsal < avg_sal then
+					status :='Lesser';
+				else
+					status :='Greater';
+				end case;
+				dbms_output.put_line(v_staffname||'	'||v_dept_name||'	'||v_designname||'	'||v_staffsal||'	'||avg_sal||'	'||status);
+		end loop;
+
+	close s_code;
+	end loop;
+close s_check;
+end info;
+/
