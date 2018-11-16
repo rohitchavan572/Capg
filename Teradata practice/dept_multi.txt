@@ -1,0 +1,7 @@
+10,Arun
+20,Suji
+10,Suganya
+20,Vijayalakshmi
+10,Subi
+20,Preethi
+10,Robo

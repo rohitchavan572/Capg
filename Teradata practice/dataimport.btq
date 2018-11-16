@@ -1,0 +1,9 @@
+.logon 10.58.0.66/td_user20,td_user20
+
+.import data file=C:\Users\rchavan3\Desktop\Module3(Tearadata)\output.txt
+.quiet on
+.repeat *
+
+using emp_no(integer),dept_no(integer),first_name(varchar(12)),last_name(char(20)),salary(decimal(10,2)),Mgr_No(integer)
+
+insert into employee_table_161425 (emp_no,dept_no,first_name,last_name,salary,Mgr_No)values(:emp_no,:dept_no,:first_name,:last_name,:salary,:Mgr_No);

@@ -1,0 +1,25 @@
+Rank Function:
+
+Select empid,
+empname,
+empsal,
+RANK() OVER (ORDER BY empsal DESC) AS "Ranking" 
+FROM emp2_158696;
+
+
+Partition by Function:
+
+Select empid,
+empname,
+empsal,
+empdept,
+RANK() OVER (PARTITION BY EMPDEPT ORDER BY empsal DESC) AS "Ranking" 
+FROM emp2_158696
+
+
+QUALIFY Function:
+Select empid,
+empname,
+empsal,
+RANK() OVER (ORDER BY empsal DESC) AS "Ranking" 
+FROM emp2_158696 QUALIFY Ranking <= 3;

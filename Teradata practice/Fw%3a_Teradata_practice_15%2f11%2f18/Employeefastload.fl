@@ -1,0 +1,32 @@
+.LOGON 10.58.0.66/td_user20,td_user20;
+DATABASE TD_BIM_FR_TRNG_DB;
+BEGIN LOADING Emp_fastload
+ERRORFILES Emp_E1_696,Emp_E2_696;
+SET RECORD VARTEXT ",";
+DEFINE EmployeeNo (VARCHAR(10)),
+FirstName (VARCHAR(30)),
+LastName (VARCHAR(30)),
+BirthDate (VARCHAR(10)),
+JoinedDate (VARCHAR(10)),
+DepartmentNo (VARCHAR(2))
+FILE = 'C:\Teradata\emp_fastload.txt';
+INSERT INTO Emp_fastload(
+EmployeeNo,
+FirstName,
+LastName,
+BirthDate,
+JoinedDate,
+DepartmentNo)
+VALUES(
+:EmployeeNo,
+:FirstName,
+:LastName,
+:BirthDate,
+:JoinedDate,
+:DepartmentNo
+);
+END LOADING;
+.LOGOFF;
+
+
+
